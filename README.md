@@ -1,4 +1,4 @@
-# SuFin-R1:
+# SuFin-R1金融推理大模型：以创新技术重塑金融决策智能
 
 ## 目录 <a name="toc"></a>
 
@@ -64,7 +64,7 @@ Financial-R1-Distill-Data 根据具体任务内容，整理为以下四大模块
 ## 🚀  训练流程 <a name="trainning"></a>
 
 ### 总体工作流程
-
+![总体工作流程](.frame1_cn.png)
 
 
 
