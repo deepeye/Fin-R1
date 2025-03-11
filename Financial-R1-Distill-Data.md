@@ -20,7 +20,7 @@ Financial-R1-Distill-Data是面向专业金融场景开发的高质量指令微�
 - 金融非推理类业务知识
 - 金融推理类业务知识
 
-![Financial-R1-Distill-Data总览](图片.jpg)
+![Financial-R1-Distill-Data总览](.frame_cn.png)
 
 [返回顶部](#toc)
 
