@@ -173,15 +173,21 @@ cd evalscope_fin
 pip install -e .
 ```
 2. 本文件是基于evalscope的框架修改的，因此使用方法可以参考官方使用手册 [evalscope_fin](https://evalscope.readthedocs.io/zh-cn/latest/index.html). 本文件修改的内容主要有：
+
 ○添加了我们的数据集，位于：evalscope/benchmark/（fineval、FinQA等）
+
 ○添加了llm as judger的方式，具体实现位于上面新增数据集路径下面每个数据集对应的adapter.py文件中，可以修改对应的prompt，注意，该方式需要在evalscope\benchmarks\llm_as_judge.yaml文件中填写api，用于llm辅助评测结果，此处目前默认使用gpt-4o作为打分模型。如果不想使用llm as judger，可以参考fineval客观题是如何评分的。
+
 ○调用api的方式改成了request和openai两种方式，根据情况选择（原代码只支持openai方式）. 
 
 3. 直接运行run_example1.py（api调用）和run_example2.py（本地模型）。具体的参数配置在这两个文件里面有写。
+
 runfinr1.py是测试数据集的一个样例，可以参考使用如何测多个模型、多个数据集。
 
 4. 添加数据集
+
 ●在evalscope/benchmark/路径下新建文件夹命名为对应数据集名称，里面应包含数据和一个adapter.py文件，选择题可以直接参考fineval文件夹里的配置，采用正则化匹配答案。如果要使用llm as a judger的方式评分，可以参考fineval_definition、FinQA。
+
 ●注意，数据集的形式不需要统一，只需在adapter.py中对应读取函数中写清楚怎么读取数据
 
 
