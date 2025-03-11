@@ -1,6 +1,13 @@
 # SuFin-R1:
 
-## 🛠️ 数据处理
+## 目录 <a name="toc"></a>
+
+1. [数据处理](#data)
+2. [训练流程](#trainning)
+3. [评估使用](#usage)
+7. [评估结果](#results)
+
+## 🛠️ 数据处理 <a name="data"></a>
 为将 DeepSeek R1 的能力迁移至金融场景，我们构建了 Financial - R1 - Distill - Data 数据集。此数据集是面向专业金融场景开发的高质量指令微调数据集，由 Deepseek - R1（完整版）提炼而成，属于 SFT 数据集。其总规模约 30k 条，中英混合，涵盖金融垂直领域多维度专业知识。数据源包括 Ant_Finance、FinanceIQ、FinanceQT、ConvFinQA、TFNS、Finance - Instruct - 500k、FinPEE、FinCorpus、FinCUGE 这九大数据集。
 
 #### 数据蒸馏
@@ -54,7 +61,7 @@ Financial-R1-Distill-Data 根据具体任务内容，整理为以下四大模块
 |总计| 30695 |
 
 
-## 🚀  训练流程
+## 🚀  训练流程 <a name="trainning"></a>
 
 ### 总体工作流程
 
@@ -158,7 +165,7 @@ accelerate launch \
 
 按照这些步骤，您可以快速安装并运行 Open WebUI，开始利用其强大的 AI 功能。
 
-## 🧐 评估使用
+## 🧐 评估使用 <a name="usage"></a>
 1. 你需要下载 [evalscope_fin](). 先在evalscope_fin目录下运行以下命令:
 ```bash
 git clone 
@@ -180,7 +187,7 @@ runfinr1.py是测试数据集的一个样例，可以参考使用如何测多个
 
 
 
-## 🧐 评估结果
+## 🧐 评估结果 <a name="results"></a>
 
 #### 金融场景
 
