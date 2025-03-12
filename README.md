@@ -19,6 +19,8 @@ SuFin-R1 是一个金融领域的推理大语言模型，经过金融专业知�
 
 ###应用场景示例: 安全合规 信用评估 智能投顾 
 
+### 总体工作流程
+![总体工作流程](.frame2_cn.png)
 
 ## 🛠️ 数据处理<a name="data"></a>
 为将 DeepSeek-R1 的能力迁移至金融场景，我们基于 Ant_Finance、FinanceIQ、FinanceQT、ConvFinQA、TFNS、Finance-Instruct-500k、FinPEE、FinCorpus、FinCUGE 这九大数据集构建了 Financial-R1-Distill-Data 数据集。该数据集由 Deepseek-R1（完整版）提炼而成，是面向专业金融推理场景开发的高质量指令微调数据集。其总规模约 30k 条，包含中英文两种语言，涵盖金融垂直领域多维度专业知识。
@@ -103,9 +105,6 @@ prompt = f"""
 有关数据的具体任务内容和示例可在[Financial-R1-Distill-Data](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/Financial-R1-Distill-Data.md)查看
 
 ## 🚀 训练流程<a name="trainning"></a>
-
-### 总体工作流程
-![总体工作流程](.frame2_cn.png)
 
 ### 训练流程
 
