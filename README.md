@@ -220,7 +220,6 @@ for model in model_list:
             'FinanceIQ',
             'FinanceQT',
             'FinCorpus',
-            #'FinCUGE', #数据集质量不高
         ],  
         limit=1, #每个数据集测试的数量
         eval_batch_size=20,   # 测评batch size
