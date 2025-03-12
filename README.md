@@ -94,7 +94,7 @@ SuFin-R1是一个金融领域的推理大语言模型，经过金融专业知识
 ```
 3.修改调用api的方式，可根据情况选择request和openai两种方式（原代码只支持openai方式）。
 
-7. 直接运行run_example1.py（api调用）和run_example2.py（本地模型）。具体的参数配置在这两个文件里面有写。
+4. 直接运行run_example1.py（api调用）和run_example2.py（本地模型）。具体的参数配置在这两个文件里面有写。
 runfinr1.py是测试数据集的一个样例，可以参考使用如何测多个模型、多个数据集。
 ```
 示例
