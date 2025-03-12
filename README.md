@@ -124,7 +124,8 @@ prompt = f"""
 
 ## 🧐 模型评测系统 <a name="result"></a>
 
-我们基于 evalscope 框架进行评测，详细使用方法可以参考官方使用手册 [evalscope](https://github.com/modelscope/evalscope)。 我们修改的内容主要有：
+我们基于 evalscope 框架进行评测，详细使用方法可以参考官方使用手册 [evalscope](https://github.com/modelscope/evalscope)。我们修改的内容主要有：
+
 1.在 evalscope/benchmark/ 中添加了我们的评测数据集，数据集的形式不需要统一，只需在[adapter.py](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/adapter.py)中写清楚读取数据规则即可。
 
 2.添加了 llm as judger 的方式，我们目前使用 gpt-4o 作为打分模型。若不想使用 llm as judger ，可以使用客观题的正则化匹配答案评分方式。
@@ -134,6 +135,7 @@ prompt = f"""
     eval_api_url: "api_url"
     eval_api_key: "your api_key"
 ```
+
 3.修改调用api的方式，可根据情况选择request和openai两种方式（原代码只支持openai方式）。
 
 4. 使用 api 调用方式进行评测：
