@@ -64,7 +64,7 @@ Financial-R1-Distill-Data 根据具体任务内容，整理为以下四大模块
 ## 🚀  训练流程 <a name="trainning"></a>
 
 ### 总体工作流程
-![总体工作流程](.frame_cn.png)
+![总体工作流程](.frame1_cn .png)
 
 
 
