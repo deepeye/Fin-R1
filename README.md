@@ -1,10 +1,10 @@
-![SuFin-R1标题](title.jpg)
+![SuFin-R1标题](title.png)
 ---
 # SuFin-R1金融推理大模型：以创新技术重塑金融决策智能
 
 SuFin-R1是一款针对金融领域复杂推理的大型语言模型，由上海财经大学统计与数据科学学院人工智能金融大模型实验室开发并开源。该模型以Qwen2.5-7B为基座，通过高质量的可验证金融问题微调训练，最终表现在多个金融领域基准测试上的表现超过了满血版DeepSeek-R1。
 
-###结果雷达图
+![评测结果](.frame_cn1.png)
 
 ## 目录<a name="toc"></a>
 1. [概述](#data)
@@ -38,7 +38,7 @@ SuFin-R1是一个金融领域的推理大语言模型，经过金融专业知识
 
 我们将经过两轮筛选后得到的数据作为高质量的COT数据用于SFT；而未经过筛选的数据则用于强化学习（RL）。
 
-有关Financial-R1-Distill-Data的具体任务内容和示例可查看[]
+有关数据的具体任务内容和示例可在Financial-R1-Distill-Data查看
 
 ### SuFin-R1-SFT数据分布如下：
 
@@ -61,7 +61,7 @@ SuFin-R1是一个金融领域的推理大语言模型，经过金融专业知识
 ## 🚀 训练流程<a name="trainning"></a>
 
 ### 总体工作流程
-![总体工作流程](.frame1_cn.png)
+![总体工作流程](.frame2_cn.png)
 
 
 ### 训练流程
@@ -78,7 +78,7 @@ SuFin-R1是一个金融领域的推理大语言模型，经过金融专业知识
 
 在掌握复杂推理技能后，使用Open-R1框架进行强化学习训练，采用的GRPO（Generalized Reward Policy Optimization）算法优化模型的专业性与合规性，我们在GRPO算法的基础上进行了 Reference model的去除，优化模型的学习，且使用格式奖励和准确率奖励进行强化学习训练，最终得到了在金融推理任务上有着明显提升的SuFin-R1-7B模型。
 
-#####grpo示例图
+![grpo](grpo.png)
 
 
 ## 🧐 模型评测系统<a name="results"></a>
