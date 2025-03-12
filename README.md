@@ -10,7 +10,8 @@ SuFin-R1 是一款针对金融领域复杂推理的大型语言模型，由上�
 1. [概述](#data)
 2. [金融推理数据](#data)
 3. [模型微调训练](#trainning)
-7. [模型评测系统](#results)
+7. [模型评测系统](#result)
+8. 7. [模型评测结果](#results)
 ## 💡 概述
 SuFin-R1 是一个金融领域的推理大语言模型，经过金融专业知识、金融非推理类业务知识、金融推理类业务知识以及金融代码四个模块数据微调训练得到。这些数据模块为模型在金融领域的应用中提供了坚实的理论支撑、业务规则、决策逻辑以及技术实现能力，以用于实现不同的功能：
 
@@ -121,7 +122,7 @@ prompt = f"""
 ![grpo](grpo.png)
 
 
-## 🧐 模型评测系统<a name="results"></a>
+## 🧐 模型评测系统 <a name="result"></a>
 
 我们基于 evalscope 框架进行评测，详细使用方法可以参考官方使用手册 [evalscope](https://github.com/modelscope/evalscope)。 我们修改的内容主要有：
 1.在 evalscope/benchmark/ 中添加了我们的评测数据集，数据集的形式不需要统一，只需在[adapter.py](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/adapter.py)中写清楚读取数据规则即可。
@@ -237,7 +238,7 @@ for model in model_list:
     run_task(task_cfg=task_cfg)
 ```
 
-## 🚨 模型评测结果
+## 🚨 模型评测结果 <a name="results"></a>
 本模型在金融数值推理、数学逻辑推演和中英双语交互三大核心维度均展现行业领先水平
 ### 金融场景
 我们在以下金融场景的基准测试上对模型进行评估，这些基准测试聚焦真实世界中金融表格数据驱动的数值推理任务以及多轮交互场景。模型在 FinQA 和 ConvFinQA 两大金融问答基准上，性能表现超越了满血版 DeepSeek-R1 ，展现出模型对上下文连贯性与数值推理一致性的强大处理能力。
