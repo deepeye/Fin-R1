@@ -1,50 +1,50 @@
-# SuFin-R1金融推理大模型：以创新技术重塑金融决策智能
+![SuFin-R1标题](title.jpg)
+---
+# SuFin-R1标融推理大模型：以创新技术重塑金融决策智能
 
-## 目录 <a name="toc"></a>
+SuFin-R1是一款针对金融领域复杂推理的大型语言模型，由上海财经大学统计与数据科学学院人工智能金融大模型实验室开发并开源。该模型以Qwen2.5-7B为基座，通过高质量的可验证金融问题微调训练，最终表现在多个金融领域基准测试上的表现超过了满血版DeepSeek-R1。
 
-1. [数据处理](#data)
-2. [训练流程](#trainning)
-3. [评估使用](#usage)
-7. [评估结果](#results)
+###结果雷达图
 
-## 🛠️ 数据处理 <a name="data"></a>
-为将 DeepSeek R1 的能力迁移至金融场景，我们构建了 Financial - R1 - Distill - Data 数据集。此数据集是面向专业金融场景开发的高质量指令微调数据集，由 Deepseek - R1（完整版）提炼而成，属于 SFT 数据集。其总规模约 30k 条，中英混合，涵盖金融垂直领域多维度专业知识。数据源包括 Ant_Finance、FinanceIQ、FinanceQT、ConvFinQA、TFNS、Finance - Instruct - 500k、FinPEE、FinCorpus、FinCUGE 这九大数据集。
+## 目录<a name="toc"></a>
+1、概览 
+2、金融推理数据 
+3、模型微调训练 
+4、模型评测结果
+1. [概述](#data)
+2. [金融推理数据](#data)
+3. [模型微调训练](#trainning)
+7. [模型评测系统](#results)
+## 💡 概述
+SuFin-R1是一个金融领域的推理大语言模型，经过金融专业知识、金融非推理类业务知识、金融推理类业务知识以及金融代码四个模块数据微调训练得到。这些数据模块为模型在金融领域的应用中提供了坚实的理论支撑、业务规则、决策逻辑以及技术实现能力，以用于实现不同的功能：
 
-#### 数据蒸馏
+###应用场景示例: 安全合规 信用评估 智能投顾 
 
-在蒸馏过程中，依照 DeepSeek - R1 官方提供的细节，进行如下设置的数据蒸馏操作：
-1)	不增加额外的系统提示词
-2)	设置temperature为0.6
-3)	对于金融数学推理型数据，增加提示词，“请一步步推理，并把最终答案放到 \\boxed{}。”
-4)	防止跳出思维模式，强制在每个输出的开头增加"\n"，再开始生成数据
 
-为方便大家使用，在发布的 SFT 数据中，增加了数据集的来源 repo_name 以及训练格式的 conversation 字段，便于数据溯源与模型训练。
+## 🛠️ 数据处理<a name="data"></a>
+为将 DeepSeek-R1的能力迁移至金融场景，我们基于Ant_Finance、FinanceIQ、FinanceQT、ConvFinQA、TFNS、Finance-Instruct-500k、FinPEE、FinCorpus、FinCUGE 这九大数据集构建了Financial-R1-Distill-Data 数据集。该数据集由Deepseek-R1（完整版）提炼而成，是面向专业金融推理场景开发的高质量指令微调数据集。其总规模约30k条，包含中英文两种语言，涵盖金融垂直领域多维度专业知识。
 
-#### 数据筛选
+### 数据蒸馏
 
-对数据生成结果进行了二次筛选：
+在蒸馏过程中，我们严格依照 DeepSeek - R1 官方提供的细节，进行相应设置的数据蒸馏操作：
+
+### 数据筛选
+
+对数据生成结果进行了两次筛选：
 
 1）答案打分：对于蒸馏得到的数据，针对客观题（如选择题、判断题），采用基于规则的匹配方式，校对蒸馏数据的正确性；对于无法通过规则匹配的结果，利用 Qwen2.5-72B-Instruct 模型对模型生成的答案以及正确答案进行打分，正确得 1 分，错误得 0 分。
 
+####规则示例
+
 2）推理过程打分：对于经过上一步筛选得到的正确思维链数据，再次利用 Qwen2.5-72B-Instruct 模型对推理轨迹进行打分，高质量数据得 1 分，低质量数据得 0 分。我们采取了如下几个指标来进行打分：
-- 内部一致性
-- 术语重叠率
-- 逻辑一致性
-- 推理步骤数量
-- 内容的多样性
-- 任务领域相关性
 
-经过两轮筛选得到的数据，将作为高质量的 COT 数据；未经过筛选的数据则用于强化学习（RL）。
+####prompt示例
 
-Financial-R1-Distill-Data 根据具体任务内容，整理为以下四大模块：
+我们将经过两轮筛选后得到的数据作为高质量的COT数据用于SFT；而未经过筛选的数据则用于强化学习（RL）。
 
-- 金融代码
-- 金融专业知识
-- 金融非推理类业务知识
-- 金融推理类业务知识
+有关Financial-R1-Distill-Data的具体任务内容和示例可查看[]
 
-#### 数据分布如下：
-
+### SuFin-R1-SFT数据分布如下：
 
 |数据集|数据量|
 |-------------|--------|
@@ -61,160 +61,69 @@ Financial-R1-Distill-Data 根据具体任务内容，整理为以下四大模块
 |总计| 30695 |
 
 
-## 🚀  训练流程 <a name="trainning"></a>
+
+## 🚀 训练流程<a name="trainning"></a>
 
 ### 总体工作流程
-![总体工作流程](.frame1_cn.png)
 
 
 
----
-
-### 🛠️  训练流程
+### 训练流程
 
 #### 第一阶段：监督式微调（SFT）
 
 我们将使用 LLaMA-Factory 框架进行训练。具体来说，我们以 Qwen2.5-7B 模型为基础模型，并使用金融推理数据集（包括 ConvFinqa 和 FinQA）进行监督式微调（SFT）。最终输出为 Qwen2.5-7B-SFT 模型。
 
-**安装步骤:**
+第一阶段----复杂推理学习——筑造金融智慧基石： 
 
-```bash
-git clone --depth 1 [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory.git)
-cd LLaMA-Factory
-pip install -e ".[torch,metrics]"
+团队基于Llama-Factory框架进行微调，对通用基座模型Qwen2.5-7B进行了深度领域适配，注入大量高质量金融推理类COT数据，显著提升模型对金融术语、金融逻辑推理和风险预测的理解能力。 
+
+第二阶段----强化学习优化——磨砺金融推理利刃： 
+
+在掌握复杂推理技能后，使用Open-R1框架进行强化学习训练，采用的GRPO（Generalized Reward Policy Optimization）算法优化模型的专业性与合规性，我们在GRPO算法的基础上进行了 Reference model的去除，优化模型的学习，且使用格式奖励和准确率奖励进行强化学习训练，最终得到了在金融推理任务上有着明显提升的SuFin-R1-7B模型。
+
+#####grpo示例图
+
+
+## 🧐 模型评测系统<a name="results"></a>
+
+我们基于evalscope框架进行评测，详细使用方法可以参考官方使用手册 [evalscope](https://github.com/modelscope/evalscope). 我们修改的内容主要有：
+1.在evalscope/benchmark/中添加了我们的评测数据集，数据集的形式不需要统一，只需在adapter.py中写清楚读取数据规则即可。
+```
+示例
+```
+2.添加了llm as judger的方式，我们目前使用gpt-4o作为打分模型。若不想使用llm as judger，可以参考客观题的正则化匹配答案评分方式。
+```
+示例
+```
+3.修改调用api的方式，可根据情况选择request和openai两种方式（原代码只支持openai方式）. 
+
+4. 直接运行run_example1.py（api调用）和run_example2.py（本地模型）。具体的参数配置在这两个文件里面有写。
+runfinr1.py是测试数据集的一个样例，可以参考使用如何测多个模型、多个数据集。
+```
+示例
 ```
 
-**添加新数据集:**
-
-- Place the dataset JSON files in the following directory:
-  ```
-  ./LLaMA-Factory/data
-  ```
-- Update the dataset index in the following JSON file:
-  ```
-  ./LLaMA-Factory/data/dataset_info.json
-  ```
-
-**运行训练:**
-
-```bash
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 GRADIO_SHARE=1 GRADIO_SERVER_PORT=2333 llamafactory-cli webui
-```
-
-更多详细操作请参考 原始框架文档。
-
----
-
-#### 第二阶段：强化学习（RL）
-
-我们将使用 OpenR1 框架进行这一阶段的训练。具体来说，我们以 Qwen2.5-7B-SFT 模型为基础，通过 Group Relative Policy Optimization（GRPO）进行强化学习训练，使用金融推理数据集（ConvFinqa 和 FinQA）进行强化学习（RL）。最终输出为 Fin-R1-7B 模型。
-
-**安装步骤:**
-
-```bash
-uv venv openr1 --python 3.11 && source openr1/bin/activate && uv pip install --upgrade pip
-uv pip install vllm==0.7.2
-uv pip install setuptools && uv pip install flash-attn --no-build-isolation
-GIT_LFS_SKIP_SMUDGE=1 uv pip install -e ".[dev]"
-```
-
-**添加数据集和模型:**
-
-- 修改配置文件中的数据集和模型路径:
-  ```
-  recipes/Qwen2.5-7B-Instruct/grpo/config_demo.yaml
-  ```
-
-**启动训练:**
-
-```bash
-accelerate launch \
-    --config_file recipes/accelerate_configs/zero3.yaml \
-    --num_processes 3 \
-    --main_process_port 29501 \
-    src/open_r1/grpo.py \
-    --config recipes/Qwen2.5-7B-Instruct/grpo/config_demo.yaml
-```
-
-#### 安装和运行 Open WebUI 
-
-##### **安装 Open WebUI**
-
-1. **确保 Python 版本**  
-   请确保使用 Python 3.11 以避免兼容性问题。
-
-2. **安装命令**  
-   打开终端并运行以下命令以安装 Open WebUI：
-   
-   ```bash
-   pip install open-webui
-   ```
-
-##### **运行 Open WebUI**
-
-1. **启动命令**  
-   
-   安装完成后，运行以下命令启动 Open WebUI：
-   
-   ```bash
-   open-webui serve
-   ```
-   
-2. **访问界面**  
-   启动后，通过在浏览器中访问 `http://localhost:8080` 来使用 Open WebUI。
-
-按照这些步骤，您可以快速安装并运行 Open WebUI，开始利用其强大的 AI 功能。
-
-## 🧐 评估使用 <a name="usage"></a>
-1.安装说明
-
-  ●你需要下载 [evalscope_fin](). 先在evalscope_fin目录下运行以下命令:
-```bash
-git clone 
-cd evalscope_fin
-pip install -e .
-```
-2.参考框架
-
-  本文件是基于evalscope的框架修改的，因此使用方法可以参考官方使用手册 [evalscope_fin](https://evalscope.readthedocs.io/zh-cn/latest/index.html). 本文件修改的内容主要有：
-
-  ●添加了我们的数据集，位于：evalscope/benchmark/（fineval、FinQA等）
-
-  ●添加了llm as judger的方式，具体实现位于上面新增数据集路径下面每个数据集对应的adapter.py文件中，可以修改对应的prompt，注意，该方式需要在evalscope\benchmarks\llm_as_judge.yaml文件中填写api，用于llm辅助评测结果，此处目前默认使用gpt-4o作为打分模型。如果不想使用llm as judger，可以参考fineval客观题是如何评分的。
-
-  ●调用api的方式改成了request和openai两种方式，根据情况选择（原代码只支持openai方式）. 
-
-3.使用说明
-
-  ●直接运行run_example1.py（api调用）和run_example2.py（本地模型）。具体的参数配置在这两个文件里面有写。
-
-  ●runfinr1.py是测试数据集的一个样例，可以参考使用如何测多个模型、多个数据集。
-
-4. 添加数据集
-
-  ●在evalscope/benchmark/路径下新建文件夹命名为对应数据集名称，里面应包含数据和一个adapter.py文件，选择题可以直接参考fineval文件夹里的配置，采用正则化匹配答案。如果要使用llm as a judger的方式评分，可以参考fineval_definition、FinQA。
-
-  ●注意，数据集的形式不需要统一，只需在adapter.py中对应读取函数中写清楚怎么读取数据
 
 
 
 
-## 🧐 评估结果 <a name="results"></a>
-
-#### 金融场景
-
+## Th 模型评测结果
+本模型在金融数值推理、数学逻辑推演和中英双语交互三大核心维度均展现行业领先水平
+### 金融场景
+我们在以下金融场景的基准测试上对模型进行评估，这些基准测试聚焦真实世界中金融表格数据驱动的数值推理任务以及多轮交互场景。模型在FinQA和ConvFinQA两大金融问答基准上，性能表现超越了满血版DeepSeek-R1，展现出模型对上下文连贯性与数值推理一致性的强大处理能力。
 | Model                            | FinQA   | ConvFinga | Ant_Finance | TFNS    | Finance-Instruct |
 |---------------------------------|---------|-----------|-------------|---------|------------------|
 | FinR1-7B                        | 0.761   | 0.84      | 0.81        | 0.718   | 0.629            |
 | Qwen-2.5-7B-Instruct            | 0.60    | 0.66      | 0.85        | 0.68    | 0.49             |
 | Qwen-2.5-32B-Instruct           | 0.72    | 0.78      | 0.84        | 0.77    | 0.58             |
-| DeepSeek-R1                     | 0.71    | 0.82      | 0.90        | 0.78    |                  |
+| DeepSeek-R1                     | 0.71    | 0.82      | 0.90        | 0.78    | 0.7              |
 | DeepSeek-R1-Distil I-Qwen-32B   | 0.70    | 0.72      | 0.87        | 0.79    | 0.54             |
 | DeepSeek-R1-Distil I-Qwen-7B    | 0.55    | 0.62      | 0.71        | 0.60    | 0.42             |
 | DeepSeek-R1-Distil I-Qwen-14B   | 0.62    | 0.73      | 0.82        | 0.65    | 0.49             |
 
-#### 数学能力评估
-
+### 数学能力评估
+我们的实验发现虽然没有特意提升模型的数学能力，但是经过金融推理训练后的模型在数学场景中也表现出一定性能的提升。
 | 模型                     | MATH-500 (EM) | AIME 2024 (Pass@1) |
 |--------------------------|---------------|--------------------|
 | FinR1-7B                 | 76.4          | 20                 |
@@ -224,7 +133,9 @@ pip install -e .
 | Step-2-16K             | 77.6          | 10                 |
 | GLM-4-Plus             | 74.8          | 3.3                |
 
-#### 中文能力
+中文场景专精化：CEval 78.04的突破性表现，超越GPT-4o，彰显本土化优势，配合73.74的英文指令跟随能力（ifeval），构建起横跨中英的金融服务智能体基础。
+
+### 中文能力
 
 | 模型                     | CEval    |
 |--------------------------|----------|
@@ -234,7 +145,7 @@ pip install -e .
 | claude3.5-sonnet 1022    | 76.7     |
 | XuanYuan2-70B          | 72.7     |
 
-#### 英文指令跟随场景
+### 英文指令跟随场景
 
 | 模型                     | ifeval   |
 |--------------------------|----------|
