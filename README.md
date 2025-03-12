@@ -2,7 +2,7 @@
 ---
 # SuFin-R1金融推理大模型：以创新技术重塑金融决策智能
 
-SuFin-R1是一款针对金融领域复杂推理的大型语言模型，由上海财经大学统计与数据科学学院人工智能金融大模型实验室开发并开源。该模型以Qwen2.5-7B为基座，通过高质量的可验证金融问题微调训练，最终表现在多个金融领域基准测试上的表现超过了满血版DeepSeek-R1。
+SuFin-R1 是一款针对金融领域复杂推理的大型语言模型，由上海财经大学统计与数据科学学院人工智能金融大模型实验室开发并开源。该模型以 Qwen2.5-7B 为基座，通过高质量的可验证金融问题微调训练，最终表现在多个金融领域基准测试上的表现超过了满血版 DeepSeek-R1 。
 
 ![评测结果](.frame1_cn.png)
 
@@ -12,13 +12,13 @@ SuFin-R1是一款针对金融领域复杂推理的大型语言模型，由上海
 3. [模型微调训练](#trainning)
 7. [模型评测系统](#results)
 ## 💡 概述
-SuFin-R1是一个金融领域的推理大语言模型，经过金融专业知识、金融非推理类业务知识、金融推理类业务知识以及金融代码四个模块数据微调训练得到。这些数据模块为模型在金融领域的应用中提供了坚实的理论支撑、业务规则、决策逻辑以及技术实现能力，以用于实现不同的功能：
+SuFin-R1 是一个金融领域的推理大语言模型，经过金融专业知识、金融非推理类业务知识、金融推理类业务知识以及金融代码四个模块数据微调训练得到。这些数据模块为模型在金融领域的应用中提供了坚实的理论支撑、业务规则、决策逻辑以及技术实现能力，以用于实现不同的功能：
 
 ###应用场景示例: 安全合规 信用评估 智能投顾 
 
 
 ## 🛠️ 数据处理<a name="data"></a>
-为将 DeepSeek-R1的能力迁移至金融场景，我们基于Ant_Finance、FinanceIQ、FinanceQT、ConvFinQA、TFNS、Finance-Instruct-500k、FinPEE、FinCorpus、FinCUGE 这九大数据集构建了Financial-R1-Distill-Data 数据集。该数据集由Deepseek-R1（完整版）提炼而成，是面向专业金融推理场景开发的高质量指令微调数据集。其总规模约30k条，包含中英文两种语言，涵盖金融垂直领域多维度专业知识。
+为将 DeepSeek-R1 的能力迁移至金融场景，我们基于 Ant_Finance、FinanceIQ、FinanceQT、ConvFinQA、TFNS、Finance-Instruct-500k、FinPEE、FinCorpus、FinCUGE 这九大数据集构建了 Financial-R1-Distill-Data 数据集。该数据集由 Deepseek-R1（完整版）提炼而成，是面向专业金融推理场景开发的高质量指令微调数据集。其总规模约 30k 条，包含中英文两种语言，涵盖金融垂直领域多维度专业知识。
 
 ### 数据蒸馏
 
@@ -79,9 +79,7 @@ prompt = f"""
     -请逐步思考，并将评分用\boxed{{}}格式包裹，以便通过正则表达式轻松提取。 
     """
 ```
-我们将经过两轮筛选后得到的数据作为高质量的COT数据用于SFT；而未经过筛选的数据则用于强化学习（RL）。
-
-有关数据的具体任务内容和示例可在[Financial-R1-Distill-Data](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/Financial-R1-Distill-Data.md)查看
+我们将经过两轮筛选后得到的数据作为高质量的 COT 数据用于 SFT ；而未经过筛选的数据则用于强化学习（RL）。
 
 ### SuFin-R1-SFT数据分布如下：
 
@@ -99,13 +97,12 @@ prompt = f"""
 |FinPEE published | 179 |
 |总计| 30695 |
 
-
+有关数据的具体任务内容和示例可在[Financial-R1-Distill-Data](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/Financial-R1-Distill-Data.md)查看
 
 ## 🚀 训练流程<a name="trainning"></a>
 
 ### 总体工作流程
 ![总体工作流程](.frame2_cn.png)
-
 
 ### 训练流程
 
@@ -119,115 +116,26 @@ prompt = f"""
 
 第二阶段----强化学习优化——磨砺金融推理利刃： 
 
-在掌握复杂推理技能后，使用Open-R1框架进行强化学习训练，采用的GRPO（Generalized Reward Policy Optimization）算法优化模型的专业性与合规性，我们在GRPO算法的基础上进行了 Reference model的去除，优化模型的学习，且使用格式奖励和准确率奖励进行强化学习训练，最终得到了在金融推理任务上有着明显提升的SuFin-R1-7B模型。
+在掌握复杂推理技能后，使用 Open-R1 框架进行强化学习训练，采用的 GRPO（Generalized Reward Policy Optimization）算法优化模型的专业性与合规性，我们在 GRPO 算法的基础上进行了 Reference model 的去除，优化模型的学习，且使用格式奖励和准确率奖励进行强化学习训练，最终得到了在金融推理任务上有着明显提升的 SuFin-R1-7B 模型。
 
 ![grpo](grpo.png)
 
 
 ## 🧐 模型评测系统<a name="results"></a>
 
-我们基于evalscope框架进行评测，详细使用方法可以参考官方使用手册 [evalscope](https://github.com/modelscope/evalscope). 我们修改的内容主要有：
-1.在evalscope/benchmark/中添加了我们的评测数据集，数据集的形式不需要统一，只需在adapter.py中写清楚读取数据规则即可。
-```
-class IQuizAdapter(DataAdapter):
+我们基于 evalscope 框架进行评测，详细使用方法可以参考官方使用手册 [evalscope](https://github.com/modelscope/evalscope)。 我们修改的内容主要有：
+1.在 evalscope/benchmark/ 中添加了我们的评测数据集，数据集的形式不需要统一，只需在[adapter.py](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/adapter.py)中写清楚读取数据规则即可。
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-        self.choices = ['A', 'B', 'C', 'D']
-
-    def load_from_disk(self, dataset_path: str, subset_list: list = None, work_dir: str = None, **kwargs) -> dict:
-        """
-        从本地磁盘加载数据集
-        
-        Args:
-            dataset_path: 数据集文件夹路径
-            subset_list: 子集列表 ['accounting', 'finance', 'economy', 'certificate']
-            work_dir: 工作目录
-            
-        Returns:
-            dict: 格式为 {'subset_name': {'split_name': data}}
-        """
-        import pandas as pd
-        import os
-        
-        # 初始化数据字典
-        data_dict = {}
-        
-        # 如果没有提供subset_list，使用类中定义的默认子集列表
-        if subset_list is None:
-            subset_list = ['accounting', 'finance', 'economy', 'certificate']
-        
-        # 遍历每个子集
-        for subset in subset_list:
-            # 构建Excel文件路径
-            file_path = os.path.join(dataset_path, f"fineval_{subset}.xlsx")
-            
-            # 确保文件存在
-            if not os.path.exists(file_path):
-                raise FileNotFoundError(f"找不到数据集文件：{file_path}")
-            
-            # 读取Excel文件
-            df = pd.read_excel(file_path)
-            
-            # 初始化子集数据
-            data_dict[subset] = {}
-            
-            # 构建测试集数据
-            test_data = []
-            prompt='你是一个金融知识专家，下面是一道中国金融相关考试的问题，请选出其中的正确答案。你可以一步步思考，并在最后将最终答案的选项放入 \\boxed{}',
-            for _, row in df.iterrows():
-                item = {
-                    'question': f'{prompt}\n{row["question"]}',
-                    'answer': row['answer']
-                }
-                test_data.append(item)
-            
-            # 将测试集数据添加到对应的子集中
-            data_dict[subset][self.eval_split] = test_data
-        
-        return data_dict
-
-    def gen_prompt(self, input_d: dict, subset_name: str, few_shot_list: list, **kwargs) -> dict:
-
-        prompt = f"问题: {input_d['question']}\n"
-        return {'data': [prompt], 'multi_choices': self.choices, 'system_prompt': self.system_prompt}
-
-    def __form_options(self, options: list):
-        option_str = '选项:\n'
-        for opt, choice in zip(options, self.choices):
-            option_str += f'({choice}): {opt}' + '\n'
-        return option_str
-
-    def get_gold_answer(self, input_d: dict) -> str:
-        """
-        Parse the raw input labels (gold).
-        """
-        return input_d['answer']
-
-    def parse_pred_result(self, result: str, raw_input_d: dict = None, eval_type: str = EvalType.CHECKPOINT) -> str:
-        """
-        Parse the predicted result and extract proper answer.
-        """
-        return ResponseParser.parse_first_option_with_choices(result, self.choices)
-
-    def match(self, gold: str, pred: str) -> float:
-        """
-        Match the gold answer and the predicted answer.
-        """
-        return exact_match(gold=gold, pred=pred)
-```
-2.添加了llm as judger的方式，我们目前使用gpt-4o作为打分模型。若不想使用llm as judger，可以参考客观题的正则化匹配答案评分方式。
+2.添加了 llm as judger 的方式，我们目前使用 gpt-4o 作为打分模型。若不想使用 llm as judger ，可以使用客观题的正则化匹配答案评分方式。
 ```
     # llm as judge
     eval_model: gpt-4o
     eval_api_url: "api_url"
     eval_api_key: "your api_key"
-
 ```
 3.修改调用api的方式，可根据情况选择request和openai两种方式（原代码只支持openai方式）。
 
-4. 使用api调用方式进行评测：
+4. 使用 api 调用方式进行评测：
 ```
 from evalscope import TaskConfig, run_task
 from evalscope.constants import EvalType
@@ -264,7 +172,7 @@ from evalscope import TaskConfig, run_task
 from evalscope.constants import EvalType
 
 #先运行这个命令起一个vllm推理服务，可以根据需要修改参数
-#CUDA_VISIBLE_DEVICES=0,1 export VLLM_USE_MODELSCOPE=True && python -m vllm.entrypoints.openai.api_server --model /root/FinR1/models/Qwen/Qwen2.5-3B-Instruct --served-model-name qwen2.5 --trust_remote_code --port 8801 --tensor-parallel-size 2
+#CUDA_VISIBLE_DEVICES=0,1 export VLLM_USE_MODELSCOPE=True && python -m vllm.entrypoints.openai.api_server --model #模型路径 --served-model-name #模型名称 --trust_remote_code --port 8801 --tensor-parallel-size 2
 
 task_cfg = TaskConfig(
     model='',   # 模型名称 (需要与部署时的模型名称一致)
@@ -294,8 +202,6 @@ run_task(task_cfg=task_cfg)
 ```
 from evalscope import TaskConfig, run_task
 from evalscope.constants import EvalType
-
-
 
 model_list = ['qwen2.5-32b-instruct','qwen2.5-14b-instruct','qwen2.5-7b-instruct']
 
@@ -334,7 +240,7 @@ for model in model_list:
 ## 🚨 模型评测结果
 本模型在金融数值推理、数学逻辑推演和中英双语交互三大核心维度均展现行业领先水平
 ### 金融场景
-我们在以下金融场景的基准测试上对模型进行评估，这些基准测试聚焦真实世界中金融表格数据驱动的数值推理任务以及多轮交互场景。模型在FinQA和ConvFinQA两大金融问答基准上，性能表现超越了满血版DeepSeek-R1，展现出模型对上下文连贯性与数值推理一致性的强大处理能力。
+我们在以下金融场景的基准测试上对模型进行评估，这些基准测试聚焦真实世界中金融表格数据驱动的数值推理任务以及多轮交互场景。模型在 FinQA 和 ConvFinQA 两大金融问答基准上，性能表现超越了满血版 DeepSeek-R1 ，展现出模型对上下文连贯性与数值推理一致性的强大处理能力。
 | Model                            | FinQA   | ConvFinga | Ant_Finance | TFNS    | Finance-Instruct |
 |---------------------------------|---------|-----------|-------------|---------|------------------|
 | FinR1-7B                        | 0.761   | 0.84      | 0.81        | 0.718   | 0.629            |
@@ -356,7 +262,7 @@ for model in model_list:
 | Step-2-16K             | 77.6          | 10                 |
 | GLM-4-Plus             | 74.8          | 3.3                |
 
-中文场景专精化：CEval 78.04的突破性表现，超越GPT-4o，彰显本土化优势，配合73.74的英文指令跟随能力（ifeval），构建起横跨中英的金融服务智能体基础。
+中文场景专精化：SuFin-R1 在 CEval 上以 78.04 的突破性表现超越 GPT-4o ，彰显本土化优势，配合 73.74 的英文指令跟随能力（ifeval），构建起横跨中英的金融服务智能体基础。
 
 ### 中文能力
 
