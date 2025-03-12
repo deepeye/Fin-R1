@@ -1,6 +1,15 @@
-![SuFin-R1标题](title.png)
+<div align="center">
+<h3>
+  ![SuFin-R1标题](title.png)
+</h3>
+</div>
 ---
-# SuFin-R1金融推理大模型：以创新技术重塑金融决策智能
+# 
+<div align="center">
+<h3>
+  SuFin-R1金融推理大模型：以创新技术重塑金融决策智能
+</h3>
+</div>
 
 SuFin-R1是一款针对金融领域复杂推理的大型语言模型，由上海财经大学统计与数据科学学院人工智能金融大模型实验室开发并开源。该模型以Qwen2.5-7B为基座，通过高质量的可验证金融问题微调训练，最终表现在多个金融领域基准测试上的表现超过了满血版DeepSeek-R1。
 
@@ -29,16 +38,59 @@ SuFin-R1是一个金融领域的推理大语言模型，经过金融专业知识
 对数据生成结果进行了两次筛选：
 
 1）答案打分：对于蒸馏得到的数据，针对客观题（如选择题、判断题），采用基于规则的匹配方式，校对蒸馏数据的正确性；对于无法通过规则匹配的结果，利用 Qwen2.5-72B-Instruct 模型对模型生成的答案以及正确答案进行打分，正确得 1 分，错误得 0 分。
+```
+prompt_template = '''
+        你是一位金融领域的专家评估员。请根据问题、正确答案以及待评分答案，对提供的答案进行打分。
 
-####规则示例
+    Question: {question}
+    Correct Answer: {gold_answer}
+    Answer to be Scored: {answer}
 
+评分标准如下：
+    1. 答案正确性（主要标准）：
+       - 如果待评分答案与标准答案数值相同，得1分
+       - 如果待评分答案与标准答案存在显著偏差，得0分
+    2. 数学表达：
+       - 允许使用不同的数学表达方式，只要表达等价即可
+       - 例如：0.2和20%视为等价表达  
+    3. 单位表示：
+       - 允许使用不同的单位表示方式，如"亿元"和"亿"视为等价
+       - 单位可以与标准答案不一致，只要换算后相等即可
+    注意事项：
+     - 待评分答案不一定与标准答案完全一致，只要表达了相同的数值结论即可
+     - 如果答案正确但缺少解题步骤，仍可得分
+     - 如果答案错误但解题步骤正确，不得分
+    Response requirement: Only provide the result, and place the score at the end in \\boxed{{}}. Do not output the thought process.
+    Output example: \\boxed{{1}} or \\boxed{{0}}
+    '''
+```
 2）推理过程打分：对于经过上一步筛选得到的正确思维链数据，再次利用 Qwen2.5-72B-Instruct 模型对推理轨迹进行打分，高质量数据得 1 分，低质量数据得 0 分。我们采取了如下几个指标来进行打分：
+```
+prompt = f"""
+    请根据以下标准评估推理过程的质量：
+    1.内部一致性：检查推理过程中的步骤是否一致，并且是否能够逐步逻辑地推导出标准答案。
+    2.术语重叠度：检查推理过程中使用的术语与标准答案中的术语的重叠程度。重叠度越高越好。
+    3.推理步骤数量：评估推理过程是否包含足够的步骤（至少3步）。
+    4.逻辑一致性：确保推理过程中的步骤与标准答案在逻辑上高度一致，并检查是否存在明显的错误或遗漏。
+    5.内容多样性：检查推理过程中是否存在大量重复的步骤。
+    6.与任务领域的相关性：检查推理过程是否涉及与任务领域相关的内容（任务领域：{task_domain}）。如果推理反映了与任务领域的相关性，则给予更高的评分。
+    7.与任务指令的一致性：检查推理过程是否与任务指令高度相关。相关性越高越好。如果推理内容完全符合任务指令，则给予更高的评分。
 
-####prompt示例
+    以下是问题、推理过程和标准答案：
+    Question: {task_instruction}
+    Reasoning Process: {reasoning}
+    Standard Answer: {gold_answer}
 
+    请根据以下标准给出评分：
+    -如果推理过程质量高，评分为1。
+    -如果推理过程质量差，评分为0。
+    -评分只能是1或0。
+    -请逐步思考，并将评分用\boxed{{}}格式包裹，以便通过正则表达式轻松提取。 
+    """
+```
 我们将经过两轮筛选后得到的数据作为高质量的COT数据用于SFT；而未经过筛选的数据则用于强化学习（RL）。
 
-有关数据的具体任务内容和示例可在Financial-R1-Distill-Data查看
+有关数据的具体任务内容和示例可在[Financial-R1-Distill-Data](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/Financial-R1-Distill-Data.md)查看
 
 ### SuFin-R1-SFT数据分布如下：
 
@@ -86,23 +138,207 @@ SuFin-R1是一个金融领域的推理大语言模型，经过金融专业知识
 我们基于evalscope框架进行评测，详细使用方法可以参考官方使用手册 [evalscope](https://github.com/modelscope/evalscope). 我们修改的内容主要有：
 1.在evalscope/benchmark/中添加了我们的评测数据集，数据集的形式不需要统一，只需在adapter.py中写清楚读取数据规则即可。
 ```
-示例
+class IQuizAdapter(DataAdapter):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.choices = ['A', 'B', 'C', 'D']
+
+    def load_from_disk(self, dataset_path: str, subset_list: list = None, work_dir: str = None, **kwargs) -> dict:
+        """
+        从本地磁盘加载数据集
+        
+        Args:
+            dataset_path: 数据集文件夹路径
+            subset_list: 子集列表 ['accounting', 'finance', 'economy', 'certificate']
+            work_dir: 工作目录
+            
+        Returns:
+            dict: 格式为 {'subset_name': {'split_name': data}}
+        """
+        import pandas as pd
+        import os
+        
+        # 初始化数据字典
+        data_dict = {}
+        
+        # 如果没有提供subset_list，使用类中定义的默认子集列表
+        if subset_list is None:
+            subset_list = ['accounting', 'finance', 'economy', 'certificate']
+        
+        # 遍历每个子集
+        for subset in subset_list:
+            # 构建Excel文件路径
+            file_path = os.path.join(dataset_path, f"fineval_{subset}.xlsx")
+            
+            # 确保文件存在
+            if not os.path.exists(file_path):
+                raise FileNotFoundError(f"找不到数据集文件：{file_path}")
+            
+            # 读取Excel文件
+            df = pd.read_excel(file_path)
+            
+            # 初始化子集数据
+            data_dict[subset] = {}
+            
+            # 构建测试集数据
+            test_data = []
+            prompt='你是一个金融知识专家，下面是一道中国金融相关考试的问题，请选出其中的正确答案。你可以一步步思考，并在最后将最终答案的选项放入 \\boxed{}',
+            for _, row in df.iterrows():
+                item = {
+                    'question': f'{prompt}\n{row["question"]}',
+                    'answer': row['answer']
+                }
+                test_data.append(item)
+            
+            # 将测试集数据添加到对应的子集中
+            data_dict[subset][self.eval_split] = test_data
+        
+        return data_dict
+
+    def gen_prompt(self, input_d: dict, subset_name: str, few_shot_list: list, **kwargs) -> dict:
+
+        prompt = f"问题: {input_d['question']}\n"
+        return {'data': [prompt], 'multi_choices': self.choices, 'system_prompt': self.system_prompt}
+
+    def __form_options(self, options: list):
+        option_str = '选项:\n'
+        for opt, choice in zip(options, self.choices):
+            option_str += f'({choice}): {opt}' + '\n'
+        return option_str
+
+    def get_gold_answer(self, input_d: dict) -> str:
+        """
+        Parse the raw input labels (gold).
+        """
+        return input_d['answer']
+
+    def parse_pred_result(self, result: str, raw_input_d: dict = None, eval_type: str = EvalType.CHECKPOINT) -> str:
+        """
+        Parse the predicted result and extract proper answer.
+        """
+        return ResponseParser.parse_first_option_with_choices(result, self.choices)
+
+    def match(self, gold: str, pred: str) -> float:
+        """
+        Match the gold answer and the predicted answer.
+        """
+        return exact_match(gold=gold, pred=pred)
 ```
 2.添加了llm as judger的方式，我们目前使用gpt-4o作为打分模型。若不想使用llm as judger，可以参考客观题的正则化匹配答案评分方式。
 ```
-示例
+    # llm as judge
+    eval_model: gpt-4o
+    eval_api_url: "api_url"
+    eval_api_key: "your api_key"
+
 ```
 3.修改调用api的方式，可根据情况选择request和openai两种方式（原代码只支持openai方式）。
 
-4. 直接运行run_example1.py（api调用）和run_example2.py（本地模型）。具体的参数配置在这两个文件里面有写。
-runfinr1.py是测试数据集的一个样例，可以参考使用如何测多个模型、多个数据集。
+4. 使用api调用方式进行评测：
 ```
-示例
+from evalscope import TaskConfig, run_task
+from evalscope.constants import EvalType
+
+task_cfg = TaskConfig(
+    model='',   # 模型名称 (需要与部署时的模型名称一致)
+    api_url='',  # 推理服务地址
+    api_key='your api_key',
+    api_type='request',
+    eval_type='service',   # 评测类型，SERVICE表示评测推理服务
+    datasets=[
+    # 'math_500',  # 数据集名称
+     'fineval_definition'   
+    ],
+    dataset_args={ # EvalScope内置支持，无需指定数据集ID
+    'fineval_definition': {'subset_list': ['main'], 'few_shot_num': 0},
+    },    
+    limit=5,
+    eval_batch_size=5,
+    generation_config={       # 模型推理配置
+        'max_tokens': 4096,  # 最大生成token数，建议设置为较大值避免输出截断
+        'temperature': 0.6,   # 采样温度 (deepseek 报告推荐值)
+        'top_p': 0.95,        # top-p采样 (deepseek 报告推荐值)
+        'n': 1                # 每个请求产生的回复数量 (注意 lmdeploy 目前只支持 n=1)
+    },
+    stream=False               # 是否使用流式请求，推荐设置为True防止请求超时
+)
+
+run_task(task_cfg=task_cfg)
 ```
+使用本地部署模型方式进行评测：
+```
+from evalscope import TaskConfig, run_task
+from evalscope.constants import EvalType
+
+#先运行这个命令起一个vllm推理服务，可以根据需要修改参数
+#CUDA_VISIBLE_DEVICES=0,1 export VLLM_USE_MODELSCOPE=True && python -m vllm.entrypoints.openai.api_server --model /root/FinR1/models/Qwen/Qwen2.5-3B-Instruct --served-model-name qwen2.5 --trust_remote_code --port 8801 --tensor-parallel-size 2
+
+task_cfg = TaskConfig(
+    model='',   # 模型名称 (需要与部署时的模型名称一致)
+    api_url='',  # 推理服务地址，8801是与上面对应的
+    eval_type='service',   # 评测类型，SERVICE表示评测推理服务
+    datasets=[
+    # 'math_500',  # 数据集名称
+    'fineval', 'fineval_definition'   
+    ],
+    dataset_args={ 
+    'fineval_definition': {'subset_list': ['main'], 'few_shot_num': 0},
+    },    
+    limit=5,
+    eval_batch_size=1,
+    generation_config={       # 模型推理配置
+        'max_tokens': 4096,  # 最大生成token数，建议设置为较大值避免输出截断
+        'temperature': 0.6,   # 采样温度 (deepseek 报告推荐值)
+        'top_p': 0.95,        # top-p采样 (deepseek 报告推荐值)
+        'n': 1                # 每个请求产生的回复数量 (注意 lmdeploy 目前只支持 n=1)
+    },
+    stream=False               # 是否使用流式请求，推荐设置为True防止请求超时
+)
+
+run_task(task_cfg=task_cfg)
+```
+同时使用多个模型在多个基准测试上进行评测：
+```
+from evalscope import TaskConfig, run_task
+from evalscope.constants import EvalType
 
 
 
+model_list = ['qwen2.5-32b-instruct','qwen2.5-14b-instruct','qwen2.5-7b-instruct']
 
+for model in model_list:
+    task_cfg = TaskConfig(
+        model=model,   # 模型名称 (需要与部署时的模型名称一致)
+        api_url='',  # 推理服务地址
+        api_key='your api_key',
+        eval_type='service',   # 评测类型，SERVICE表示评测推理服务
+        api_type='request',
+        #数据集配置
+        datasets=[
+            'Ant_Finance',
+            'Finance_instruct',
+            'FinanceIQ',
+            'FinanceQT',
+            'FinCorpus',
+            #'FinCUGE', #数据集质量不高
+        ],  
+        limit=1, #每个数据集测试的数量
+        eval_batch_size=20,   # 测评batch size
+        review_batch_size=10, # llm as judge batch size
+        
+        generation_config={       # 模型推理配置
+            'max_tokens': 4096,  # 最大生成token数，建议设置为较大值避免输出截断
+            'temperature': 0.6,   # 采样温度 (deepseek 报告推荐值)
+            'top_p': 0.95,        # top-p采样 (deepseek 报告推荐值)
+            'n': 1                # 每个请求产生的回复数量 (注意 lmdeploy 目前只支持 n=1)
+        },
+        stream=True               # 是否使用流式请求，推荐设置为True防止请求超时
+)
+
+    run_task(task_cfg=task_cfg)
+```
 
 ## 🚨 模型评测结果
 本模型在金融数值推理、数学逻辑推演和中英双语交互三大核心维度均展现行业领先水平
