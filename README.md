@@ -2,7 +2,7 @@
 ---
 # SuFin-R1金融推理大模型：以创新技术重塑金融决策智能
 
-SuFin-R1 是一款针对金融领域复杂推理的大型语言模型，由上海财经大学统计与数据科学学院人工智能金融大模型实验室开发并开源。该模型以 Qwen2.5-7B 为基座，通过高质量的可验证金融问题微调训练，最终表现在多个金融领域基准测试上的表现超过了满血版 DeepSeek-R1 。
+SuFin-R1 是一款针对金融领域复杂推理的大型语言模型，由上海财经大学统计与数据科学学院人工智能金融大模型实验室（SUFE-AIFLM-Lab）开发并开源。该模型以 Qwen2.5-7B 为基座，通过高质量的可验证金融问题微调训练，最终表现在多个金融领域基准测试上的表现达到SOTA水平。
 
 ![评测结果](.frame1_cn.png)
 
@@ -15,7 +15,7 @@ SuFin-R1 是一款针对金融领域复杂推理的大型语言模型，由上�
 9. [未来展望](#todo)
 10. [联系我们](#connection)
 ## 💡 概述<a name="summary"></a>
-SuFin-R1 是一个金融领域的推理大语言模型，经过金融专业知识、金融非推理类业务知识、金融推理类业务知识以及金融代码四个模块数据微调训练得到。这些数据模块为模型在金融领域的应用中提供了坚实的理论支撑、业务规则、决策逻辑以及技术实现能力，以用于实现不同的功能：
+SuFin-R1 是一个金融领域的推理大语言模型，通过构建面向金融推理场景的高质量正确思维链数据，强化模型对金融推理逻辑的精准捕捉，解决传统方法中思维链噪声问题，然后采用SFT预热阶段和优化的GRPO强化学习阶段的两阶段训练框架为模型在金融领域的应用中提供坚实的理论支撑、业务规则、决策逻辑以及技术实现能力，提升模型的金融复杂推理能力以用于实现不同的功能：
 
 ###应用场景示例: 安全合规 信用评估 智能投顾 
 
@@ -23,8 +23,7 @@ SuFin-R1 是一个金融领域的推理大语言模型，经过金融专业知�
 ![总体工作流程](.frame2_cn.png)
 
 ## 🛠️ 数据处理<a name="data"></a>
-为将 DeepSeek-R1 的能力迁移至金融场景，我们基于 Ant_Finance、FinanceIQ、FinanceQT、ConvFinQA、TFNS、Finance-Instruct-500k、FinPEE、FinCorpus、FinCUGE 这九大数据集构建了 Financial-R1-Distill-Data 数据集。该数据集由 Deepseek-R1（完整版）提炼而成，是面向专业金融推理场景开发的高质量指令微调数据集。其总规模约 30k 条，包含中英文两种语言，涵盖金融垂直领域多维度专业知识。
-
+为将 DeepSeek-R1 的推理能力迁移至金融场景并解决传统金融数据分布散、标注成本高以及缺乏对复杂推理逻辑针对性设计的问题，我们基于 Ant_Finance、FinanceIQ、FinanceQT、ConvFinQA、TFNS、Finance-Instruct、FinPEE、FinCorpus、FinCUGE 这九大数据集，通过双轮动态蒸馏构建了约 30k 条面向专业金融推理场景的高质量COT数据集 FinR1-Data 。该数据集由 Deepseek-R1（完整版）提炼而成，并创新性对思维链进行“答案+推理”双轮质量打分筛选，涵盖中英文金融垂直领域的多维度专业知识，并根据具体任务内容将其分为金融代码、金融专业知识、金融非推理类业务知识和金融推理类业务知识四大模块。
 ### 数据蒸馏
 
 在蒸馏过程中，我们严格依照 [DeepSeek - R1](https://github.com/deepseek-ai/DeepSeek-R1) 官方提供的细节，进行相应设置的数据蒸馏操作：
@@ -34,36 +33,9 @@ SuFin-R1 是一个金融领域的推理大语言模型，经过金融专业知�
 对数据生成结果进行了两次筛选：
 
 1）答案打分：对于蒸馏得到的数据，针对客观题（如选择题、判断题），采用基于规则的匹配方式，校对蒸馏数据的正确性；对于无法通过规则匹配的结果，利用 Qwen2.5-72B-Instruct 模型对模型生成的答案以及正确答案进行打分，正确得 1 分，错误得 0 分。
-```
-prompt_template = '''
-        你是一位金融领域的专家评估员。请根据问题、正确答案以及待评分答案，对提供的答案进行打分。
 
-    Question: {question}
-    Correct Answer: {gold_answer}
-    Answer to be Scored: {answer}
-
-评分标准如下：
-    1. 答案正确性（主要标准）：
-       - 如果待评分答案与标准答案数值相同，得1分
-       - 如果待评分答案与标准答案存在显著偏差，得0分
-    2. 数学表达：
-       - 允许使用不同的数学表达方式，只要表达等价即可
-       - 例如：0.2和20%视为等价表达  
-    3. 单位表示：
-       - 允许使用不同的单位表示方式，如"亿元"和"亿"视为等价
-       - 单位可以与标准答案不一致，只要换算后相等即可
-    注意事项：
-     - 待评分答案不一定与标准答案完全一致，只要表达了相同的数值结论即可
-     - 如果答案正确但缺少解题步骤，仍可得分
-     - 如果答案错误但解题步骤正确，不得分
-    Response requirement: Only provide the result, and place the score at the end in \\boxed{{}}. Do not output the thought process.
-    Output example: \\boxed{{1}} or \\boxed{{0}}
-    '''
-```
 2）推理过程打分：对于经过上一步筛选得到的正确思维链数据，再次利用 Qwen2.5-72B-Instruct 模型对推理轨迹进行打分，高质量数据得 1 分，低质量数据得 0 分。我们采取了如下几个指标来进行打分：
 ```
-prompt = f"""
-    请根据以下标准评估推理过程的质量：
     1.内部一致性：检查推理过程中的步骤是否一致，并且是否能够逐步逻辑地推导出标准答案。
     2.术语重叠度：检查推理过程中使用的术语与标准答案中的术语的重叠程度。重叠度越高越好。
     3.推理步骤数量：评估推理过程是否包含足够的步骤（至少3步）。
@@ -71,22 +43,10 @@ prompt = f"""
     5.内容多样性：检查推理过程中是否存在大量重复的步骤。
     6.与任务领域的相关性：检查推理过程是否涉及与任务领域相关的内容（任务领域：{task_domain}）。如果推理反映了与任务领域的相关性，则给予更高的评分。
     7.与任务指令的一致性：检查推理过程是否与任务指令高度相关。相关性越高越好。如果推理内容完全符合任务指令，则给予更高的评分。
-
-    以下是问题、推理过程和标准答案：
-    Question: {task_instruction}
-    Reasoning Process: {reasoning}
-    Standard Answer: {gold_answer}
-
-    请根据以下标准给出评分：
-    -如果推理过程质量高，评分为1。
-    -如果推理过程质量差，评分为0。
-    -评分只能是1或0。
-    -请逐步思考，并将评分用\boxed{{}}格式包裹，以便通过正则表达式轻松提取。 
-    """
 ```
 我们将经过两轮筛选后得到的数据作为高质量的 COT 数据用于 SFT ；而未经过筛选的数据则用于强化学习（RL）。
 
-### SuFin-R1-SFT数据分布如下：
+### FinR1-Data数据分布如下：
 
 |数据集|数据量|
 |-------------|--------|
@@ -102,142 +62,40 @@ prompt = f"""
 |FinPEE published | 179 |
 |总计| 30695 |
 
-有关数据的具体任务内容和示例可在[Financial-R1-Distill-Data](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/Financial-R1-Distill-Data.md)查看
+有关数据的具体任务内容和示例可在[FinR1-Data](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/Financial-R1-Distill-Data.md)查看
 
 ## 🚀 训练流程<a name="trainning"></a>
 
 ### 训练流程
 
-#### 第一阶段----复杂推理学习——筑造金融智慧基石： 
+#### 第一阶段----领域知识注入： 
 
-团队基于Llama-Factory框架进行微调，对通用基座模型Qwen2.5-7B进行了深度领域适配，注入大量高质量金融推理类COT数据，显著提升模型对金融术语、金融逻辑推理和风险预测的理解能力。 
+针对通用模型在金融术语理解、合规性判断等任务中存在逻辑断裂与场景泛化不足等问题。团队基于Llama-Factory框架进行微调，对通用基座模型Qwen2.5-7B进行了深度领域适配，注入大量高质量金融推理类COT数据，显著提升模型对金融术语、金融逻辑推理和风险预测的理解能力。 
 
-#### 第二阶段----强化学习优化——磨砺金融推理利刃： 
+#### 第二阶段----强化学习优化： 
 
-在掌握复杂推理技能后，使用 Open-R1 框架进行强化学习训练，采用的 GRPO（Generalized Reward Policy Optimization）算法优化模型的专业性与合规性，我们在 GRPO 算法的基础上进行了 Reference model 的去除，优化模型的学习，且使用格式奖励和准确率奖励进行强化学习训练，最终得到了在金融推理任务上有着明显提升的 SuFin-R1-7B 模型。
+在模型掌握复杂推理技能后，团队使用Open-R1框架进行强化学习训练，在比较多种强化学习算法效果后选取GRPO（Generalized Reward Policy Optimization）算法以动态奖励机制优化模型输出的专业性与合规性，并采取了一种创新性方法：去除传统的 Reference model ，同时采用格式奖励+准确率奖励双驱动机制来优化模型的学习。
 
 ![grpo](grpo.png)
 
 
 ## 🧐 模型评测系统 <a name="result"></a>
 
-我们基于 evalscope 框架进行评测，详细使用方法可以参考官方使用手册 [evalscope](https://github.com/modelscope/evalscope)。我们修改的内容主要有：
+我们基于 evalscope 框架进行评测，详细使用方法可以参考官方使用手册 [evalscope](https://github.com/modelscope/evalscope)。我们主要做了如下修改：
 
 1.在 evalscope/benchmark/ 中添加了我们的评测数据集，数据集的形式不需要统一，只需在[adapter.py](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/adapter.py)中写清楚读取数据规则即可。
 
 2.添加了 llm as judger 的方式，我们目前使用 gpt-4o 作为打分模型。若不想使用 llm as judger ，可以使用客观题的正则化匹配答案评分方式。
-```
-    # llm as judge
-    eval_model: gpt-4o
-    eval_api_url: "api_url"
-    eval_api_key: "your api_key"
-```
 
 3.修改调用api的方式，可根据情况选择request和openai两种方式（原代码只支持openai方式）。
 
-4. 使用 api 调用方式进行评测：
-```
-from evalscope import TaskConfig, run_task
-from evalscope.constants import EvalType
 
-task_cfg = TaskConfig(
-    model='',   # 模型名称 (需要与部署时的模型名称一致)
-    api_url='',  # 推理服务地址
-    api_key='your api_key',
-    api_type='request',
-    eval_type='service',   # 评测类型，SERVICE表示评测推理服务
-    datasets=[
-    # 'math_500',  # 数据集名称
-     'fineval_definition'   
-    ],
-    dataset_args={ # EvalScope内置支持，无需指定数据集ID
-    'fineval_definition': {'subset_list': ['main'], 'few_shot_num': 0},
-    },    
-    limit=5,
-    eval_batch_size=5,
-    generation_config={       # 模型推理配置
-        'max_tokens': 4096,  # 最大生成token数，建议设置为较大值避免输出截断
-        'temperature': 0.6,   # 采样温度 (deepseek 报告推荐值)
-        'top_p': 0.95,        # top-p采样 (deepseek 报告推荐值)
-        'n': 1                # 每个请求产生的回复数量 (注意 lmdeploy 目前只支持 n=1)
-    },
-    stream=False               # 是否使用流式请求，推荐设置为True防止请求超时
-)
-
-run_task(task_cfg=task_cfg)
-```
-使用本地部署模型方式进行评测：
-```
-from evalscope import TaskConfig, run_task
-from evalscope.constants import EvalType
-
-#先运行这个命令起一个vllm推理服务，可以根据需要修改参数
-#CUDA_VISIBLE_DEVICES=0,1 export VLLM_USE_MODELSCOPE=True && python -m vllm.entrypoints.openai.api_server --model #模型路径 --served-model-name #模型名称 --trust_remote_code --port 8801 --tensor-parallel-size 2
-
-task_cfg = TaskConfig(
-    model='',   # 模型名称 (需要与部署时的模型名称一致)
-    api_url='',  # 推理服务地址，8801是与上面对应的
-    eval_type='service',   # 评测类型，SERVICE表示评测推理服务
-    datasets=[
-    # 'math_500',  # 数据集名称
-    'fineval', 'fineval_definition'   
-    ],
-    dataset_args={ 
-    'fineval_definition': {'subset_list': ['main'], 'few_shot_num': 0},
-    },    
-    limit=5,
-    eval_batch_size=1,
-    generation_config={       # 模型推理配置
-        'max_tokens': 4096,  # 最大生成token数，建议设置为较大值避免输出截断
-        'temperature': 0.6,   # 采样温度 (deepseek 报告推荐值)
-        'top_p': 0.95,        # top-p采样 (deepseek 报告推荐值)
-        'n': 1                # 每个请求产生的回复数量 (注意 lmdeploy 目前只支持 n=1)
-    },
-    stream=False               # 是否使用流式请求，推荐设置为True防止请求超时
-)
-
-run_task(task_cfg=task_cfg)
-```
-同时使用多个模型在多个基准测试上进行评测：
-```
-from evalscope import TaskConfig, run_task
-from evalscope.constants import EvalType
-
-model_list = ['qwen2.5-32b-instruct','qwen2.5-14b-instruct','qwen2.5-7b-instruct']
-
-for model in model_list:
-    task_cfg = TaskConfig(
-        model=model,   # 模型名称 (需要与部署时的模型名称一致)
-        api_url='',  # 推理服务地址
-        api_key='your api_key',
-        eval_type='service',   # 评测类型，SERVICE表示评测推理服务
-        api_type='request',
-        #数据集配置
-        datasets=[
-            'Ant_Finance',
-            'Finance_instruct',
-            'FinanceIQ',
-            'FinanceQT',
-            'FinCorpus',
-        ],  
-        limit=1, #每个数据集测试的数量
-        eval_batch_size=20,   # 测评batch size
-        review_batch_size=10, # llm as judge batch size
-        
-        generation_config={       # 模型推理配置
-            'max_tokens': 4096,  # 最大生成token数，建议设置为较大值避免输出截断
-            'temperature': 0.6,   # 采样温度 (deepseek 报告推荐值)
-            'top_p': 0.95,        # top-p采样 (deepseek 报告推荐值)
-            'n': 1                # 每个请求产生的回复数量 (注意 lmdeploy 目前只支持 n=1)
-        },
-        stream=True               # 是否使用流式请求，推荐设置为True防止请求超时
-)
-
-    run_task(task_cfg=task_cfg)
-```
 
 ## 🚨 模型评测结果 <a name="results"></a>
-本模型在金融数值推理、数学逻辑推演和中英双语交互三大核心维度均展现行业领先水平
+在覆盖金融、数学以及语言能力的权威评测中，参数量仅有7B的SuFin-R1都展现出卓越的性能，大幅超越了其他通用LLM。特别是在金融场景中，SuFin-R1-7B在FinQA和ConvFinQA上的表现均超过了满血版DeepSeek-R1。
+
+##结果表格重做
+
 ### 金融场景
 我们在以下金融场景的基准测试上对模型进行评估，这些基准测试聚焦真实世界中金融表格数据驱动的数值推理任务以及多轮交互场景。模型在 FinQA 和 ConvFinQA 两大金融问答基准上，性能表现超越了满血版 DeepSeek-R1 ，展现出模型对上下文连贯性与数值推理一致性的强大处理能力。
 | Model                            | FinQA   | ConvFinga | Ant_Finance | TFNS    | Finance-Instruct |
@@ -285,7 +143,9 @@ for model in model_list:
 | GLM-4-9B-Chat          | 69.3     |
 | Phi-4                  | 64       |
 
+## 推理和部署
 
-## 📌 未来展望 <a name="todo"></a>
-
+## 📌 声明及未来展望 <a name="todo"></a>
+SuFin-R1作为金融领域的推理型大语言模型，虽能出色完成诸多金融任务，为用户提供专业服务，但现阶段仍存在技术瓶颈与应用限制。它提供的建议和分析结果仅供参考，不可等同于专业金融分析师或专家的精准判断。我们诚挚希望用户以批判性思维审视模型输出，结合自身专业知识与经验进行决策。对于未来，我们将持续优化SuFin-R1，深度探索其在前沿金融场景的应用潜力，助力金融行业迈向智能化与合规化的新高度，为行业发展注入强劲动力。
 ## 📫 联系我们 <a name="connection"></a>
+诚邀业界同仁共同探索AI与金融深度融合的创新范式，共建智慧金融新生态。
