@@ -21,6 +21,13 @@ SuFin-R1 是一个金融领域的推理大语言模型，通过构建面向金�
 
 [![视频封面](https://img.shields.io/badge/点击播放-视频演示-blue)](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/%E9%A3%8E%E6%8E%A7.mp4)
 
+示例
+<video controls width="800">
+  <source src="https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/%E9%A3%8E%E6%8E%A7.mp4">
+  您的浏览器不支持 HTML5 视频。
+</video>
+
+
 ### 总体工作流程
 ![总体工作流程](.frame2_cn.png)
 
