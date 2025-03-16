@@ -18,11 +18,8 @@ SuFin-R1 是一款针对金融领域复杂推理的大型语言模型，由上�
 SuFin-R1 是一个金融领域的推理大语言模型，通过构建面向金融推理场景的高质量正确思维链数据，强化模型对金融推理逻辑的精准捕捉，解决传统方法中思维链噪声问题，然后采用SFT预热阶段和优化的GRPO强化学习阶段的两阶段训练框架为模型在金融领域的应用中提供坚实的理论支撑、业务规则、决策逻辑以及技术实现能力，提升模型的金融复杂推理能力以用于实现不同的功能：
 
 ###应用场景示例: 安全合规 信用评估 智能投顾 
-## 动画演示
-<video controls width="800">
-  <source src="https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/%E9%A3%8E%E6%8E%A7.mp4" type="video/mp4">
-  您的浏览器不支持 HTML5 视频。
-</video>
+
+[![视频封面](https://img.shields.io/badge/点击播放-视频演示-blue)](https://github.com/{用户名}/{仓库名}/raw/main/path/to/demo.mp4)
 
 ### 总体工作流程
 ![总体工作流程](.frame2_cn.png)
