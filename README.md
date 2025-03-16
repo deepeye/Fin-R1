@@ -20,7 +20,7 @@ SuFin-R1 是一个金融领域的推理大语言模型，通过构建面向金�
 ###应用场景示例: 安全合规 信用评估 智能投顾 
 ## 动画演示
 <video controls width="800">
-  <source src="风控.mp4" type="video/mp4">
+  <source src="[风控.mp4](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/%E9%A3%8E%E6%8E%A7.mp4)" type="video/mp4">
   您的浏览器不支持 HTML5 视频。
 </video>
 
