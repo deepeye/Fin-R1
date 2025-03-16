@@ -54,8 +54,8 @@ SuFin-R1 是一个金融领域的推理大语言模型，由上海财经大学�
 
 |数据集|数据量|
 |-------------|--------|
-|Convfinqa-R1-Distill |7629|
-|Finance-instruct-500K-R1-Distill | 11300 |
+|ConvFinQA-R1-Distill |7629|
+|Finance-Instruct-500K-R1-Distill | 11300 |
 |FinCUGE-R1-Distill | 2000 |
 |FinQA-R1-Distill | 2948 |
 |TFNS-R1-Distill | 2451|
