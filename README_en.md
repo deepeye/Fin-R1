@@ -1,4 +1,4 @@
-![Fin-R1标题](title.png)
+![Fin-R1标题](iamges/title.png)
 ---
 # Fin-R1 Financial Reasoning Large Model: Reshaping Financial Decision Intelligence with Innovative Technology
 
