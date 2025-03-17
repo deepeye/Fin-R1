@@ -129,7 +129,7 @@ Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统�
 | Fin-R1                       | 7B         | 76.0  | 85.0      | 81.0        | 71.0 | 62.9                    | 75.2    |
 
 
-## 模型使用说明 <a name="use"></a>
+## 💪 模型使用说明 <a name="use"></a>
 您可以直接从huggingface中下载我们的模型权重
 ```
 git clone https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1
