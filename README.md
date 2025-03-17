@@ -1,4 +1,4 @@
-![Fin-R1标题](title.png)
+![Fin-R1标题](iamges/title.png)
 ---
 # Fin-R1金融推理大模型：以创新技术重塑金融决策智能
 
