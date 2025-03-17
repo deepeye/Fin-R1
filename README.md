@@ -10,10 +10,11 @@ Fin-R1 是一款针对金融领域复杂推理的大型语言模型，由上海�
 1. [概述](#summary)
 2. [金融推理数据](#data)
 3. [模型微调训练](#trainning)
-7. [模型评测系统](#result)
+7. [模型评测使用](#use1)
 8. [模型评测结果](#results)
-9. [未来展望](#todo)
-10. [联系我们](#connection)
+9. [模型使用](#use)
+10. [未来展望](#todo)
+11. [联系我们](#connection)
 ## 💡 概述<a name="summary"></a>
 Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统计与数据科学学院人工智能金融大模型实验室（SUFE-AIFLM-Lab）开发并开源。该模型以轻量化的7B参数量级设计，在显著降低部署成本的同时，通过构建面向金融推理场景的高质量正确思维链数据与SFT+RL两阶段训练框架，为模型在金融领域的应用中提供坚实的理论支撑、业务规则、决策逻辑以及技术实现能力，提升模型的金融复杂推理能力以用于实现不同的功能：
 
@@ -80,12 +81,13 @@ Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统�
 |FinPEE-R1-Distill | 179 |
 |总计| 60091 |
 
-有关数据的具体任务内容和示例可在[Fin-R1-Data](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/Financial-R1-Distill-Data.md)查看
+有关数据的具体任务内容和示例可在[Fin-R1-Data](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/Fin-R1-Data.md)查看
+
 
 ## 🚀 训练流程<a name="trainning"></a>
 
 ### 训练流程
-
+研究针对金融领域复杂推理任务，采用两阶段训练框架优化Qwen-7B-instruct（引用）得到金融推理大语言模型Fin-R1。通过高质量金融推理数据的有监督微调（SFT）和强化学习GRPO（引用）相结合的方式，采用格式奖励和准确度奖励进行强化学习，Fin-R1在金融推理任务中实现了高精度与强泛化能力。
 #### 第一阶段----领域知识注入： 
 
 针对通用模型在金融术语理解、合规性判断等任务中存在逻辑断裂与场景泛化不足等问题。团队基于Llama-Factory框架进行微调，对通用基座模型Qwen2.5-7B进行了深度领域适配，注入大量高质量金融推理类COT数据，显著提升模型对金融术语、金融逻辑推理和风险预测的理解能力。 
@@ -97,17 +99,17 @@ Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统�
 ![grpo](grpo.png)
 
 
-## 🧐 模型评测系统 <a name="result"></a>
+## 🧐 评测使用说明 <a name="use1"></a>
 
-我们基于 evalscope 框架进行评测，详细使用方法可以参考官方使用手册 [evalscope](https://github.com/modelscope/evalscope)。我们主要做了如下修改：
+本研究构建了基于金融领域多任务特性的基准测试框架，并选取五类具有代表性的开源异构数据集进行系统性验证，我们主要做了如下修改：
 
-1.在 evalscope/benchmark/ 中添加了我们的评测数据集，数据集的形式不需要统一，只需在[adapter.py](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/adapter.py)中写清楚读取数据规则即可。
+1.在添加我们的评测数据集时，数据集的形式不需要统一，只需在[adapter.py](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/adapter.py)中写清楚读取数据规则即可。
 
-2.添加了 llm as judger 的方式，我们目前使用 gpt-4o 作为打分模型。若不想使用 llm as judger ，可以使用客观题的正则化匹配答案评分方式。
+2.添加了 LLM as Judger 的方式，我们目前使用 GPT-4o 作为打分模型。若不想使用 LLM as Judger ，可以使用客观题的正则化匹配答案评分方式。
 
 3.修改调用api的方式，可根据情况选择request和openai两种方式（原代码只支持openai方式）。
 
-
+评估时针对各评估集样本容量异质性问题，设计了动态阈值判定策略：当评估集样本量低于1,000时实施全量测试以保证统计显著性；当样本量超过1,000时，通过分层抽样策略随机抽取1,000个具有类别代表性的样本构成精简评估集。
 
 ## 🚨 模型评测结果 <a name="results"></a>
 在覆盖金融、数学以及语言能力的权威评测中，参数量仅有7B的Fin-R1都展现出卓越的性能，大幅超越了其他通用LLM。特别是在金融场景中，Fin-R1-7B在FinQA和ConvFinQA上的表现均超过了满血版DeepSeek-R1。
@@ -127,9 +129,24 @@ Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统�
 | Fin-R1                       | 7B         | 76.0  | 85.0      | 81.0        | 71.0 | 62.9                    | 75.2    |
 
 
-## 推理和部署
+## 模型使用说明 <a name="use"></a>
+您可以直接从huggingface中下载我们的模型权重
+```
+git clone https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1
+```
+准备好依赖环境，采用如下命令一键安装vllm
+```
+pip install vllm
+```
+命令行一键启动模型服务：
+```
+vllm serve "/path/Fin-R1" --port 8000 --gpu-memory-utilization 0.9 --max-model-len 16384 --tensor-parallel-size 2 --served-model-name "Fin-R1"
+```
+
 
 ## 📌 声明及未来展望 <a name="todo"></a>
 SuFin-R1作为金融领域的推理型大语言模型，虽能出色完成诸多金融任务，为用户提供专业服务，但现阶段仍存在技术瓶颈与应用限制。它提供的建议和分析结果仅供参考，不可等同于专业金融分析师或专家的精准判断。我们诚挚希望用户以批判性思维审视模型输出，结合自身专业知识与经验进行决策。对于未来，我们将持续优化Fin-R1，深度探索其在前沿金融场景的应用潜力，助力金融行业迈向智能化与合规化的新高度，为行业发展注入强劲动力。
+
+
 ## 📫 联系我们 <a name="connection"></a>
 诚邀业界同仁共同探索AI与金融深度融合的创新范式，共建智慧金融新生态。
