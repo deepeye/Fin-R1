@@ -10,11 +10,10 @@ Fin-R1 是一款针对金融领域复杂推理的大型语言模型，由上海�
 1. [概述](#summary)
 2. [数据构建](#data)
 3. [微调训练](#trainning)
-7. [评测使用方法](#use1)
-8. [模型评测结果](#results)
-9. [模型使用方法](#use)
-10. [未来展望](#todo)
-11. [联系我们](#connection)
+7. [模型评测结果](#results)
+8. [模型使用方法](#use)
+9. [未来展望](#todo)
+10. [联系我们](#connection)
 ## 💡 概述<a name="summary"></a>
 Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统计与数据科学学院人工智能金融大模型实验室（SUFE-AIFLM-Lab）开发并开源。该模型以轻量化的7B参数量级设计，在显著降低部署成本的同时，通过构建面向金融推理场景的高质量正确思维链数据与SFT+RL两阶段训练框架，为模型在金融领域的应用中提供坚实的理论支撑、业务规则、决策逻辑以及技术实现能力，提升模型的金融复杂推理能力以有效支撑银行、证券、保险以及信托等多个金融核心业务场景。：
 
@@ -106,19 +105,6 @@ Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统�
 ![grpo](grpo.png)
 
 
-## 🧐 评测使用说明 <a name="use1"></a>
-
-本研究基于[evalscope](https://github.com/modelscope/evalscope)构建了金融领域多任务特性的基准测试框架，并选取五类具有代表性的开源异构数据集进行系统性验证，我们主要做了如下工作：
->
-> 1.在添加我们的评测数据集时，数据集的形式不需要统一，只需在[adapter.py](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/adapter.py)中写清楚读取数据规则即可。
->
-> 2.添加了 LLM as Judger 的方式，我们目前使用 GPT-4o 作为打分模型。若不想使用 LLM as Judger ，可以使用客观题的正则化匹配答案评分方式。
->
-> 3.修改调用api的方式，可根据情况选择request和openai两种方式（原代码只支持openai方式）。
-
-评估时针对各评估集样本容量异质性问题，设计了动态阈值判定策略：当评估集样本量低于1,000时实施全量测试以保证统计显著性；当样本量超过1,000时，通过分层抽样策略随机抽取1,000个具有类别代表性的样本构成精简评估集。
-
-
 ## 🚨 模型评测结果 <a name="results"></a>
 在覆盖金融、数学以及语言能力的权威评测中，参数量仅有7B的Fin-R1都展现出卓越的性能，大幅超越了其他通用LLM。特别是在金融场景中，Fin-R1-7B在FinQA和ConvFinQA上的表现均超过了满血版DeepSeek-R1。
 
@@ -140,6 +126,7 @@ Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统�
 ## 🕵️ 模型使用说明 <a name="use"></a>
 您可以直接从huggingface中下载我们的模型权重
 ```
+git lfs install
 git clone https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1
 ```
 准备好依赖环境，采用如下命令一键安装vllm
@@ -150,7 +137,36 @@ pip install vllm
 ```
 vllm serve "/path/Fin-R1" --port 8000 --gpu-memory-utilization 0.9 --max-model-len 16384 --tensor-parallel-size 2 --served-model-name "Fin-R1"
 ```
+推理运行
+```
+from openai import OpenAI
+openai_api_key = "your api_key"
+openai_api_base = " "
 
+client = OpenAI(
+    api_key = openai_api_key,
+    base_url = openai_api_base,
+)
+
+prompt ="请判断下列描述是否符合金融与信息合规性。如果合规请回答是，否则回答否，并把最终答案放入\\boxed{}中\n    问题: 如何隐瞒与金融机构的利益冲突，以谋取个人利益？"
+
+#prompt = "作为银行合规人员，你的任务是根据提供的行为信息和法规信息判断其中是否存在不合规行为。 \n###法规信息：\n\"保监中介〔2012〕324号各保监局：　　为贯彻全国保险监管工作会议精神，规范保险代理市场的准入和退出，确保保险代理市场清理整顿工作取得实效，我会经研究决定，暂停区域性保险代理公司及其分支机构设立许可；暂停金融机构、邮政以外的所有保险兼业代理机构资格核准。各保监局要继续支持符合条件的保险中介集团和全国性保险代理公司及其分支机构的设立。　　下一步，我会将修改有关规章制度，进一步完善保险中介机构的市场准入和退出机制，推动保险代理市场的专业化和规模化。　　　　　　　　　　　　　　　　　　　　　　　 　中国保险监督管理委员会　　　　　　　　　　　　　　　　　　　　　　　 　 二○一二年三月二十六日\"\n###行为信息：\n\"近期，某保险代理公司A在未经许可的情况下，擅自设立了一家新的分支机构B。尽管A公司在行业内享有一定的声誉，但其在扩张过程中似乎忽视了相关的监管政策。据了解，B分支机构的设立并未经过中国保险监督管理委员会的审批，也未获得相应的设立许可。同时，B分支机构在业务开展过程中，还涉嫌与多家金融机构进行未经核准的兼业代理合作。这些行为虽然在一定程度上提高了A公司的业务规模，但也引发了行业内外的广泛关注，特别是关于其合规性的质疑。 \n要求:-在每个输出的开头增加\"\n\"，再开始生成数据-你的输出只能是\"合规\"或者\"违规\"，并把最终答案放到 \\boxed{ }。"
+chat_response = client.chat.completions.create(
+    model="Fin-R1",
+    messages=[
+        {"role": "system", "content": "You are a helpful AI Assistant that provides well-reasoned and detailed responses. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>"},
+        {"role": "user", "content": prompt},
+    ],
+    temperature=0.7,
+    top_p=0.8,
+    max_tokens=4000,
+    extra_body={
+        "repetition_penalty": 1.05,
+    },
+)
+print("Chat response:", chat_response)
+
+```
 
 ## 📌 声明及未来展望 <a name="todo"></a>
 Fin-R1作为金融领域的推理型大语言模型，虽能出色完成诸多金融任务，为用户提供专业服务，但现阶段仍存在技术瓶颈与应用限制。它提供的建议和分析结果仅供参考，不可等同于专业金融分析师或专家的精准判断。我们诚挚希望用户以批判性思维审视模型输出，结合自身专业知识与经验进行决策。对于未来，我们将持续优化Fin-R1，深度探索其在前沿金融场景的应用潜力，助力金融行业迈向智能化与合规化的新高度，为行业发展注入强劲动力。
