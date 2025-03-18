@@ -1,4 +1,4 @@
-![Fin-R1标题](iamges/title.png)  
+![Fin-R1标题](images/title.png)    
 ---            
 # Fin-R1 Financial Reasoning Large Model: Reshaping Financial Decision Intelligence with Innovative Technology        
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Model Download](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1) [![Dataset Download](https://img.shields.io/badge/📁-Get_Dataset-green)](https://huggingface.co/datasets/SUFE-AIFLM-Lab/Fin-R1-Data) [![Technical Docs](https://img.shields.io/badge/📚-Technical_Docs-orange)](#)   📄 ​**Choose Language**:  [**中文**](./README.md) | [**English**](./README_en.md)    
