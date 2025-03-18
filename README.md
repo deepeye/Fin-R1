@@ -74,13 +74,13 @@ Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统�
 
 ### Fin-R1-Data数据分布如下：
 Fin-R1-Data涵盖中英文金融垂直领域的多维度专业知识，并根据具体任务内容将其分为金融代码、金融专业知识、金融非推理类业务知识和金融推理类业务知识四大模块，可有效支撑银行、证券以及信托等多个金融核心业务场景。
-
+![grpo](Images/.frame_cn.png) 
 |数据集|数据量|
 |-------------|--------|
 |ConvFinQA-R1-Distill |7629|
 |Finance-Instruct-500K-R1-Distill | 11300 |
 |FinCUGE-R1-Distill | 2000 |
-|FinQA-R1-Distill | 2948 |![grpo](Images/.frame_cn.png)  
+|FinQA-R1-Distill | 2948 | 
 |TFNS-R1-Distill | 2451|                                                   
 |FinanceIQ-R1-Distill | 2596 |
 |FinanceQT-R1-Distill | 152 |
@@ -96,20 +96,20 @@ Fin-R1-Data涵盖中英文金融垂直领域的多维度专业知识，并根据
 ## 🚀 微调训练<a name="trainning"></a>
 
 ### 两阶段流程
-针对金融领域复杂推理任务，我们利用 Qwen-7B-Instruct 进行两阶段微调训练得到金融推理大语言模型Fin-R1。首先通过高质量金融推理数据的 SFT(Supervised Fine-Tuning)  帮助模型重构知识体系，然后在 GRPO（Group Relative Policy Optimization 算法的基础上结合格式奖励和准确度奖励进行强化学习，以此提升金融推理任务的准确性和泛化能力。
+针对金融领域复杂推理任务，我们利用 Qwen-7B-Instruct 进行两阶段微调训练得到金融推理大语言模型Fin-R1。首先通过高质量金融推理数据的 SFT(Supervised Fine-Tuning)  帮助模型重构知识体系，然后在 GRPO（Group Relative Policy Optimization) 算法的基础上结合格式奖励和准确度奖励进行强化学习，以此提升金融推理任务的准确性和泛化能力。
 #### 第一阶段----领域知识注入： 
 
 针对金融推理任务中的复杂推理、金融术语理解和合规性判断等领域进行微调，我们首先对 Qwen2.5-7B-Instruct 模型在 ConvFinQA 和 FinQA 金融数据集进行Supervised Fine-Tuning。经过一轮微调训练后有效解决了通用模型在金融推理任务中的逻辑断裂和场景泛化不足的问题，确保模型能够深入理解并处理复杂的金融推理问题
  
 #### 第二阶段----强化学习优化： 
 
-在模型掌握复杂推理技能后，我们采用GRPO（Group Relative Policy Optimization）算法作为核心框架，以动态奖励机制优化模型输出的专业性与合规性，并在此基础上引入了基于模型的验证器（Model-Based Verifier），采用Qwen2.5-Max进行答案评估来改进基于正则表达式的奖励可能存在的偏差，生成更加精确可靠的奖励信号，从而提升强化学习的效果和稳定性。
+在模型掌握复杂推理技能后，我们采用 GRPO（Group Relative Policy Optimization）算法作为核心框架，以动态奖励机制优化模型输出的专业性与合规性，并在此基础上引入了基于模型的验证器（Model-Based Verifier），采用 Qwen2.5-Max 进行答案评估来改进基于正则表达式的奖励可能存在的偏差，生成更加精确可靠的奖励信号，从而提升强化学习的效果和稳定性。
 
 ![grpo](Images/trainning.png)
 
 
 ## 🚨 模型评测结果 <a name="results"></a>
-我们在覆盖多项金融业务场景的基准测试上对模型进行评估，在评测结果中，只经过指令微调 (SFT) 的模型 Fin-R1-SFT 在金融场景中取得了一定性能提升，经过指令微调 (SFT) 加强化学习 (RL) 训练的 Fin-R1 以仅7B的轻量化参数规模展现出显著的性能优势，达到75.2的平均得分位居第二，全面超越参评的同规模模型，同时与行业标杆DeepSeek-R1平均分差距仅为3.8%且较70B参数模型DeepSeek-R1-Distill-Llama-70B（69.2）提升8.7%。此外Fin-R1在聚焦真实金融表格数值推理任务的FinQA 以及多轮交互场景的ConvFinQA 两大关键任务测试上分别以76.0和85.0的得分在参评模型中登顶第一，展现出了模型在金融推理场景及金融非推理场景中的强大处理能力。
+我们在覆盖多项金融业务场景的基准测试上对模型进行评估，在评测结果中，只经过指令微调 (SFT) 的模型 Fin-R1-SFT 在金融场景中取得了一定性能提升，经过指令微调 (SFT) 加强化学习 (RL) 训练的 Fin-R1 以仅7B的轻量化参数规模展现出显著的性能优势，达到 75.2 的平均得分位居第二，全面超越参评的同规模模型，同时与行业标杆 DeepSeek-R1 平均分差距仅为 3.8% 且较70B 参数模型 DeepSeek-R1-Distill-Llama-70B（69.2）提升 8.7% 。此外 Fin-R1 在聚焦真实金融表格数值推理任务的 FinQA 以及多轮交互场景的 ConvFinQA 两大关键任务测试上分别以 76.0 和 85.0 的得分在参评模型中登顶第一，展现出了模型在金融推理场景及金融非推理场景中的强大处理能力。
 
 | Model                        | Parameters | FinQA | ConvFinQA | Ant_Finance | TFNS |  Finance-Instruct-500k  | Average |
 |------------------------------|------------|-------|-----------|-------------|------|-------------------------|---------|
