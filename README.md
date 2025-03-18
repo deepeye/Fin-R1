@@ -6,8 +6,8 @@
 [![技术文档](https://img.shields.io/badge/📚-技术文档-orange)](#)
 ## Language Toggle            
 📄 ​**选择语言:**          
-- [README.md (中文)](./README.md)    
-- [README_en.md (English)](./README_en.md) 
+- [中文](./README.md)                  
+- [English](./README_en.md)           
 
 Fin-R1 是一款针对金融领域复杂推理的大型语言模型，由上海财经大学统计与数据科学学院人工智能金融大模型实验室（SUFE-AIFLM-Lab）开发并开源。该模型以 Qwen2.5-7B-Instruct 为基座，通过高质量的可验证金融问题微调训练，最终表现在多个金融领域基准测试上的表现达到参评模型的SOTA水平。
 
