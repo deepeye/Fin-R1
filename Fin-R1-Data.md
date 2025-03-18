@@ -1,4 +1,4 @@
-# 金融领域蒸馏数据集（Financial-R1-Distill-Data）
+# 金融领域蒸馏数据集（Fin-R1-Data）
 
 ## 目录 <a name="toc"></a>
 
