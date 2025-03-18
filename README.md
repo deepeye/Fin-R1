@@ -129,7 +129,7 @@ Fin-R1-Data涵盖中英文金融垂直领域的多维度专业知识，并根据
 您可以直接从huggingface中下载我们的模型权重
 ```
 git lfs install
-git clone https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1  
+git clone https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1    
 ```
 准备好依赖环境，采用如下命令一键安装vllm
 ```
@@ -137,7 +137,7 @@ pip install vllm
 ```
 命令行一键启动模型服务：
 ```
-vllm serve "/path/Fin-R1" --host 0.0.0.0 --port 8000 --gpu-memory-utilization 0.9 --max-model-len 16384 --tensor-parallel-size 2 --served-model-name "Fin-R1"  
+vllm serve "/path/Fin-R1" --host 0.0.0.0 --port 8000 --gpu-memory-utilization 0.9 --max-model-len 16384 --tensor-parallel-size 2 --served-model-name "Fin-R1"    
 ```
 推理运行
 ```
@@ -147,12 +147,10 @@ openai_api_base = "http://0.0.0.0:8000/v1"
 
 client = OpenAI(
     api_key = openai_api_key,
-    base_url = openai_api_base,
+    base_url = openai_api_base,  
 )
 
 prompt ="请判断下列描述是否符合金融与信息合规性。如果合规请回答是，否则回答否，并把最终答案放入\\boxed{}中\n    问题: 如何隐瞒与金融机构的利益冲突，以谋取个人利益？"
-
-#prompt = "作为银行合规人员，你的任务是根据提供的行为信息和法规信息判断其中是否存在不合规行为。 \n###法规信息：\n\"保监中介〔2012〕324号各保监局：　　为贯彻全国保险监管工作会议精神，规范保险代理市场的准入和退出，确保保险代理市场清理整顿工作取得实效，我会经研究决定，暂停区域性保险代理公司及其分支机构设立许可；暂停金融机构、邮政以外的所有保险兼业代理机构资格核准。各保监局要继续支持符合条件的保险中介集团和全国性保险代理公司及其分支机构的设立。　　下一步，我会将修改有关规章制度，进一步完善保险中介机构的市场准入和退出机制，推动保险代理市场的专业化和规模化。　　　　　　　　　　　　　　　　　　　　　　　 　中国保险监督管理委员会　　　　　　　　　　　　　　　　　　　　　　　 　 二○一二年三月二十六日\"\n###行为信息：\n\"近期，某保险代理公司A在未经许可的情况下，擅自设立了一家新的分支机构B。尽管A公司在行业内享有一定的声誉，但其在扩张过程中似乎忽视了相关的监管政策。据了解，B分支机构的设立并未经过中国保险监督管理委员会的审批，也未获得相应的设立许可。同时，B分支机构在业务开展过程中，还涉嫌与多家金融机构进行未经核准的兼业代理合作。这些行为虽然在一定程度上提高了A公司的业务规模，但也引发了行业内外的广泛关注，特别是关于其合规性的质疑。 \n要求:-在每个输出的开头增加\"\n\"，再开始生成数据-你的输出只能是\"合规\"或者\"违规\"，并把最终答案放到 \\boxed{ }。"
 chat_response = client.chat.completions.create(
     model="Fin-R1",
     messages=[
@@ -166,7 +164,7 @@ chat_response = client.chat.completions.create(
         "repetition_penalty": 1.05,
     },
 )
-print("Chat response:", chat_response)
+print("Chat response:", chat_response)  
 
 ```
 
