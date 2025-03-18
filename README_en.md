@@ -7,7 +7,7 @@ Fin-R1 is a large language model designed for complex reasoning in the financial
 
 
 
-## Table of Contents<a name="toc"></a>
+## Table of Contents<a name="toc"></a>  
 1. [Overview](#summary)
 2. [Data Construction](#data)
 3. [Fine-Tuning and Training](#trainning)
@@ -17,28 +17,28 @@ Fin-R1 is a large language model designed for complex reasoning in the financial
 10. [Statement and Future Outlook](#todo)
 11. [Contact Us](#connection)
 ## 💡  Overview<a name="summary"></a>
-Fin-R1 is a financial reasoning large language model developed and open-sourced by the Artificial Intelligence Financial Large Model Laboratory (SUFE-AIFLM-Lab) at the School of Statistics and Data Science, Shanghai University of Finance and Economics. With a lightweight design of 7 billion parameters, Fin-R1 significantly reduces deployment costs while providing robust theoretical support, business rules, decision logic, and technical implementation capabilities for financial applications through a high-quality correct reasoning chain data and a two-stage training framework of SFT (Supervised Fine-Tuning) and RL (Reinforcement Learning). The model enhances complex financial reasoning capabilities for various functions:      
+Fin-R1 is a financial reasoning large language model developed and open-sourced by the Artificial Intelligence Financial Large Model Laboratory (SUFE-AIFLM-Lab) at the School of Statistics and Data Science, Shanghai University of Finance and Economics. With a lightweight design of 7 billion parameters, Fin-R1 significantly reduces deployment costs while providing robust theoretical support, business rules, decision logic, and technical implementation capabilities for financial applications through a high-quality correct reasoning chain data and a two-stage training framework of SFT (Supervised Fine-Tuning) and RL (Reinforcement Learning). The model enhances complex financial reasoning capabilities for various functions:        
 
 ### +数据-场景总览图
 
 ### Application Scenarios 
 #### Security and Compliance
-![金融计算示例](iamges/合规.gif)
+![金融计算示例](images/合规.gif)
 #### Intelligent Risk Control
-![金融计算示例](iamges/风控.gif)
+![金融计算示例](images/风控.gif)
 #### Intelligent Investment Advisory
-![金融计算示例](iamges/投顾.gif)
+![金融计算示例](images/投顾.gif)
 #### ESG Analysis
-![金融计算示例](iamges/ESG.gif)
+![金融计算示例](images/ESG.gif)
 #### English Finance
-![金融计算示例](iamges/英文金融.gif)
+![金融计算示例](images/英文金融.gif)
 #### Financial Calculation
-![金融计算示例](iamges/金融计算.gif)
+![金融计算示例](images/金融计算.gif)
 #### Financial Code
-![金融计算示例](iamges/金融代码.gif)
+![金融计算示例](images/金融代码.gif)
 
 ### Overall Workflow
-![总体工作流程](iamges/.frame2_cn.png)
+![总体工作流程](images/.frame2_cn.png)
 
 ## 🛠️ Data Construction<a name="data"></a>
 To migrate the reasoning capabilities of DeepSeek-R1 to the financial domain and address the issue of high-quality financial reasoning data, we used DeepSeek-R1 (full version) to distill domain knowledge from multiple datasets covering industry corpora (FinCorpus, Ant_Finance), professional cognition (FinPEE), business knowledge (FinCUGE, FinanceIQ, Finance-Instruct-500K), table parsing (FinQA), market insights (TFNS), multi-turn interactions (ConvFinQA), and quantitative investment (FinanceQT). We constructed a high-quality Chain-of-Thought (COT) dataset of approximately 60,000 entries, named Fin-R1-Data, tailored for professional financial reasoning scenarios. This dataset encompasses multi-dimensional professional knowledge in both Chinese and English financial vertical domains and is divided into four major modules according to specific task content: financial code, financial professional knowledge, non-reasoning financial business knowledge, and reasoning-related financial business knowledge. It effectively supports core financial scenarios in banking, funds, and securities.
