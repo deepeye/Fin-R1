@@ -11,12 +11,12 @@ Fin-R1 is a large language model for complex financial reasoning developed and o
 ## 📌 Table of Contents<a name="toc"></a>      
 ## Fin-R1
 - [Model Applications](#summary)
-- [Financial Code](#金融代码)
-- [Financial Calculations](#金融计算)
-- [English Financial Calculations](#英语金融计算)
-- [Financial Security and Compliance](#金融安全合规)
-- [Intelligent Risk Control](#智能风控)
-- [ESG Analysis](#ESG分析)
+- [Financial Code](#Financial Code)
+- [Financial Calculations](#Financial Calculations)
+- [English Financial Calculations](#English Financial Calculations)
+- [Financial Security and Compliance](#Financial Security and Compliance)
+- [Intelligent Risk Control](#Intelligent Risk Control)
+- [ESG Analysis](#ESG Analysis)
 
 ## Overall Workflow
 - [Data Construction](#data)
