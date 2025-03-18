@@ -34,18 +34,23 @@ Fin-R1 is a large language model specifically designed for the field of financia
 ## Financial Code <a name="eg1"></a>
 __Financial code refers to computer programming code used in the financial field for various financial models, algorithms, and analytical tasks, covering everything from simple financial calculations to complex derivatives pricing, risk assessment, and portfolio optimization.__
 ![金融计算示例](Images/金融代码.gif)
-## Financial Calculation s<a name="eg2"></a>
+
+## Financial Calculations <a name="eg2"></a>
 __Financial calculations involve quantitative analysis and computation of various financial problems, using mathematical models and numerical methods to solve practical financial issues, providing scientific basis for financial decisions.__
 ![金融计算示例](Images/金融计算.gif)
+
 ## English Financial Calculations <a name="eg3"></a>
 __English financial calculations emphasize building financial models and performing calculations in cross-language environments, and communicating with international peers in English.__
 ![英语金融计算示例](Images/英文金融.gif)
+
 ## Financial Security and Compliance <a name="eg4"></a>
 __Financial security and compliance focuses on preventing financial crimes and ensuring regulatory compliance, helping companies establish robust compliance management systems.__
 ![金融安全示例](Images/合规.gif)
+
 ## Intelligent Risk Control <a name="eg5"></a>
 __Intelligent risk control uses AI and big data to identify and manage financial risks, offering higher efficiency, accuracy, and real-time capabilities compared to traditional methods.__
 ![金融风控示例](Images/风控.gif)
+
 ## ESG Analysis <a name="eg6"></a>
 __ESG analysis evaluates a company's environmental, social, and governance performance to measure its sustainability, ensuring investments generate financial returns while promoting sustainable development.__
 ![ESG示例](Images/ESG.gif)
