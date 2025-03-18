@@ -102,7 +102,7 @@ Fin-R1-Data 涵盖中英文金融垂直领域的多维度专业知识，并根�
 |TFNS-R1-Distill | 2451|                                                     
 |FinanceIQ-R1-Distill | 2596 |
 |FinanceQT-R1-Distill | 152 |
-|Ant-Finance-R1-Distill | 1548 |
+|Ant_Finance-R1-Distill | 1548 |
 |FinCorpus-R1-Distill | 29288|
 |FinPEE-R1-Distill | 179 |
 |总计| 60091 |
