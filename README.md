@@ -80,7 +80,7 @@ Fin-R1-Data涵盖中英文金融垂直领域的多维度专业知识，并根据
 |ConvFinQA-R1-Distill |7629|
 |Finance-Instruct-500K-R1-Distill | 11300 |
 |FinCUGE-R1-Distill | 2000 |
-|FinQA-R1-Distill | 2948 |                                                          ![grpo](Images/.frame_cn.png)  
+|FinQA-R1-Distill | 2948 |![grpo](Images/.frame_cn.png)  
 |TFNS-R1-Distill | 2451|                                                   
 |FinanceIQ-R1-Distill | 2596 |
 |FinanceQT-R1-Distill | 152 |
