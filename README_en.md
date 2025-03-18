@@ -1,11 +1,16 @@
-![Fin-R1标题](iamges/title.png)
----
-[![模型下载](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1)            
-[![数据集下载](https://img.shields.io/badge/📁-Get_Dataset-green)](https://huggingface.co/datasets/SUFE-AIFLM-Lab/Fin-R1-Data)          
-[![技术文档](https://img.shields.io/badge/📚-Technical_Documentation-orange)](#)    
-# Fin-R1 Financial Reasoning Large Model: Reshaping Financial Decision Intelligence with Innovative Technology  
+![Fin-R1标题](iamges/title.png)  
+---            
+# Fin-R1 Financial Reasoning Large Model: Reshaping Financial Decision Intelligence with Innovative Technology        
 
-Fin-R1 is a large language model designed for complex reasoning in the financial domain, developed and open-sourced by the Artificial Intelligence Financial Large Model Laboratory (SUFE-AIFLM-Lab) at the School of Statistics and Data Science, Shanghai University of Finance and Economics. Built on the Qwen2.5-7B-Instruct base model, Fin-R1 is fine-tuned with high-quality verifiable financial questions and achieves state-of-the-art (SOTA) performance on multiple financial benchmark tests.  
+[![模型下载](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1)            
+[![数据集下载](https://img.shields.io/badge/📁-Get_Dataset-green)](https://huggingface.co/datasets/SUFE-AIFLM-Lab/Fin-R1-Data)            
+[![技术文档](https://img.shields.io/badge/📚-Technical_Documentation-orange)](#)  
+## Language Toggle
+📄 ​**Choose Language:**  
+- [README.md (中文)](./README.md)  
+- [README_en.md (English)](./README_en.md)
+- 
+Fin-R1 is a large language model designed for complex reasoning in the financial domain, developed and open-sourced by the Artificial Intelligence Financial Large Model Laboratory (SUFE-AIFLM-Lab) at the School of Statistics and Data Science, Shanghai University of Finance and Economics. Built on the Qwen2.5-7B-Instruct base model, Fin-R1 is fine-tuned with high-quality verifiable financial questions and achieves state-of-the-art (SOTA) performance on multiple financial benchmark tests.    
 
 
 
@@ -19,7 +24,7 @@ Fin-R1 is a large language model designed for complex reasoning in the financial
 10. [Statement and Future Outlook](#todo)
 11. [Contact Us](#connection)
 ## 💡  Overview<a name="summary"></a>
-Fin-R1 is a financial reasoning large language model developed and open-sourced by the Artificial Intelligence Financial Large Model Laboratory (SUFE-AIFLM-Lab) at the School of Statistics and Data Science, Shanghai University of Finance and Economics. With a lightweight design of 7 billion parameters, Fin-R1 significantly reduces deployment costs while providing robust theoretical support, business rules, decision logic, and technical implementation capabilities for financial applications through a high-quality correct reasoning chain data and a two-stage training framework of SFT (Supervised Fine-Tuning) and RL (Reinforcement Learning). The model enhances complex financial reasoning capabilities for various functions:    
+Fin-R1 is a financial reasoning large language model developed and open-sourced by the Artificial Intelligence Financial Large Model Laboratory (SUFE-AIFLM-Lab) at the School of Statistics and Data Science, Shanghai University of Finance and Economics. With a lightweight design of 7 billion parameters, Fin-R1 significantly reduces deployment costs while providing robust theoretical support, business rules, decision logic, and technical implementation capabilities for financial applications through a high-quality correct reasoning chain data and a two-stage training framework of SFT (Supervised Fine-Tuning) and RL (Reinforcement Learning). The model enhances complex financial reasoning capabilities for various functions:      
 
 ### +数据-场景总览图
 
