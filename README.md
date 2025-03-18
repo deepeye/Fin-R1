@@ -76,14 +76,14 @@ Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统�
 
 ### Fin-R1-Data数据分布如下：
 Fin-R1-Data涵盖中英文金融垂直领域的多维度专业知识，并根据具体任务内容将其分为金融代码、金融专业知识、金融非推理类业务知识和金融推理类业务知识四大模块，可有效支撑银行、证券以及信托等多个金融核心业务场景。
-![grpo](Images/.frame_cn.png)   
+![grpo](Images/frame_cn.png)         
 |数据集|数据量|
 |-------------|--------|
 |ConvFinQA-R1-Distill |7629|
 |Finance-Instruct-500K-R1-Distill | 11300 |
 |FinCUGE-R1-Distill | 2000 |
 |FinQA-R1-Distill | 2948 | 
-|TFNS-R1-Distill | 2451|                                                   
+|TFNS-R1-Distill | 2451|                                                     
 |FinanceIQ-R1-Distill | 2596 |
 |FinanceQT-R1-Distill | 152 |
 |Ant-Finance-R1-Distill | 1548 |
