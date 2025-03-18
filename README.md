@@ -36,6 +36,7 @@ Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统�
 ![金融计算示例](iamges/金融代码.gif)
 
 ### 总体工作流程
+我们基于 DeepSeek-R1 构建了数据蒸馏框架，并严格按照官方参数设定进行数据处理，采用两阶段数据筛选方法提升金融领域数据质量，生成了SFT数据集和RL数据集。在训练过程中，我们利用Qwen2.5-7B-Instruct，通过监督微调（SFT）和强化学习（GRPO）训练金融推理大模型 Fin-R1，以提升金融推理任务的准确性和泛化能力。
 ![总体工作流程](iamges/.frame2_cn.png)
 
 ## 🛠️ 数据构建<a name="data"></a>
@@ -49,7 +50,7 @@ Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统�
 
 ### 数据筛选
 
-对数据生成结果进行了两次筛选，在第一阶段，我们通过仅接受与标准答案相匹配的解决方案来执行数据筛选，在第二阶段，我们对模型的推理轨迹数据进行筛选。每一次筛选都会将数据标注为good或bad进行区分：
+针对金融数据结构的复杂特性采取对思维链进行“答案+推理逻辑”双轮质量打分的创新方式筛选，首轮基于规则匹配和Qwen2.5-72B-Instruct模型对答案准确性评分，次轮对模型推理链的逻辑一致性、术语合规性等推理逻辑进行深度校验以保证数据质量，每次打分筛选出的数据标注为good或bad进行区分：
 
 1）答案打分：对于蒸馏得到的数据，针对客观题（如选择题、判断题），采用基于规则的匹配方式，校对蒸馏数据的正确性；对于无法通过规则匹配的结果，利用 Qwen2.5-72B-Instruct 模型对模型生成的答案以及正确答案进行打分，正确得 1 分，错误得 0 分。
 
@@ -72,6 +73,9 @@ Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统�
 我们将经过两轮筛选后均标注为good的数据作为高质量的 COT 数据用于 SFT ；而未经过筛选标注为bad的数据则作为推理QA数据用于强化学习（RL）。
 
 ### Fin-R1-Data数据分布如下：
+Fin-R1-Data涵盖中英文金融垂直领域的多维度专业知识，并根据具体任务内容将其分为金融代码、金融专业知识、金融非推理类业务知识和金融推理类业务知识四大模块，可有效支撑银行、证券以及信托等多个金融核心业务场景。
+
+
 
 |数据集|数据量|
 |-------------|--------|
@@ -87,35 +91,33 @@ Fin-R1 是一个金融领域的推理大语言模型，由上海财经大学统�
 |FinPEE-R1-Distill | 179 |
 |总计| 60091 |
 
-有关数据的具体任务内容和示例可在[Fin-R1-Data](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/Fin-R1-Data.md)查看
+有关数据的具体任务内容和示例可在[Fin-R1-Data](https://huggingface.co/datasets/SUFE-AIFLM-Lab/Fin-R1-Data)查看
 
 
 ## 🚀 微调训练<a name="trainning"></a>
 
 ### 两阶段流程
-研究针对金融领域复杂推理任务，采用两阶段训练框架优化Qwen-7B-instruct（引用）得到金融推理大语言模型Fin-R1。通过高质量金融推理数据的有监督微调（SFT）和强化学习GRPO（引用）相结合的方式，采用格式奖励和准确度奖励进行强化学习，Fin-R1在金融推理任务中实现了高精度与强泛化能力。
+针对金融领域复杂推理任务，我们利用 Qwen-7B-Instruct 进行两阶段微调训练得到金融推理大语言模型Fin-R1。首先通过高质量金融推理数据的 SFT(Supervised Fine-Tuning)  帮助模型重构知识体系，然后在 GRPO（Group Relative Policy Optimization 算法的基础上结合格式奖励和准确度奖励进行强化学习，以此提升金融推理任务的准确性和泛化能力。
 #### 第一阶段----领域知识注入： 
 
-针对通用模型在金融术语理解、合规性判断等任务中存在逻辑断裂与场景泛化不足等问题。团队基于Llama-Factory框架进行微调，对通用基座模型Qwen2.5-7B-Instruct 进行了深度领域适配，注入大量高质量金融推理类COT数据，显著提升模型对金融术语、金融逻辑推理和风险预测的理解能力。 
-
+针对金融推理任务中的复杂推理、金融术语理解和合规性判断等领域进行微调，我们首先对 Qwen2.5-7B-Instruct 模型在 ConvFinQA 和 FinQA 金融数据集进行Supervised Fine-Tuning。经过一轮微调训练后有效解决了通用模型在金融推理任务中的逻辑断裂和场景泛化不足的问题，确保模型能够深入理解并处理复杂的金融推理问题
+ 
 #### 第二阶段----强化学习优化： 
 
-在模型掌握复杂推理技能后，团队使用Open-R1框架进行强化学习训练，在比较多种强化学习算法效果后选取GRPO（Generalized Reward Policy Optimization）算法以动态奖励机制优化模型输出的专业性与合规性，并采取了一种创新性方法：去除传统的 Reference model ，同时采用格式奖励+准确率奖励双驱动机制来优化模型的学习。
+在模型掌握复杂推理技能后，我们采用GRPO（Group Relative Policy Optimization）算法作为核心框架，以动态奖励机制优化模型输出的专业性与合规性，并在此基础上引入了基于模型的验证器（Model-Based Verifier），采用Qwen2.5-Max进行答案评估来改进基于正则表达式的奖励可能存在的偏差，生成更加精确可靠的奖励信号，从而提升强化学习的效果和稳定性。
 
 ![grpo](grpo.png)
 
 
 ## 🚨 模型评测结果 <a name="results"></a>
-在覆盖金融、数学以及语言能力的权威评测中，参数量仅有7B的Fin-R1都展现出卓越的性能，大幅超越了其他通用LLM。特别是在金融场景中，Fin-R1-7B在FinQA和ConvFinQA上的表现均超过了满血版DeepSeek-R1。
+我们在覆盖多项金融业务场景的基准测试上对模型进行评估，在评测结果中，只经过指令微调 (SFT) 的模型 Fin-R1-SFT 在金融场景中取得了一定性能提升，经过指令微调 (SFT) 加强化学习 (RL) 训练的 Fin-R1 以仅7B的轻量化参数规模展现出显著的性能优势，达到75.2的平均得分位居第二，全面超越参评的同规模模型，同时与行业标杆DeepSeek-R1平均分差距仅为3.8%且较70B参数模型DeepSeek-R1-Distill-Llama-70B（69.2）提升8.7%。此外Fin-R1在聚焦真实金融表格数值推理任务的FinQA 以及多轮交互场景的ConvFinQA 两大关键任务测试上分别以76.0和85.0的得分在参评模型中登顶第一，展现出了模型在金融推理场景及金融非推理场景中的强大处理能力。
 
-### 金融场景
-我们在以下覆盖多项金融业务场景的基准测试上对模型进行评估，最终结果中模型全面超越参评的同规模模型并逼近32B级大模型表现，以75的平均得分位居第二，且在 FinQA 和 ConvFinQA 两大金融问答基准上得分在参评模型中登顶第一。
-| Model                        | Parameters | FinQA | ConvFinga | Ant_Finance | TFNS |  Finance-Instruct-500k  | Average |
+| Model                        | Parameters | FinQA | ConvFinQA | Ant_Finance | TFNS |  Finance-Instruct-500k  | Average |
 |------------------------------|------------|-------|-----------|-------------|------|-------------------------|---------|
 | DeepSeek-R1                  | unknown    | 71.0  | 82.0      | 90.0        | 78.0 | 70.0                    | 78.2    |
 | Qwen-2.5-Instruct            | 32B        | 72.0  | 78.0      | 84.0        | 77.0 | 58.0                    | 73.8    |
 | DeepSeek-R1-Distill-Qwen     | 32B        | 70.0  | 72.0      | 87.0        | 79.0 | 54.0                    | 72.4    |
-| Qwen2.5-SFT                  | 7B         | 73.0  | 81.0      | 76.0        | 68.0 | 61.0                    | 71.9    |
+| Fin-R1-SFT                   | 7B         | 73.0  | 81.0      | 76.0        | 68.0 | 61.0                    | 71.9    |
 | Qwen-2.5-Instruct            | 14B        | 68.0  | 77.0      | 84.0        | 72.0 | 56.0                    | 71.4    |
 | DeepSeek-R1-Distill-Qwen     | 14B        | 62.0  | 73.0      | 82.0        | 65.0 | 49.0                    | 66.2    |
 | Qwen-2.5-Instruct            | 7B         | 60.0  | 66.0      | 85.0        | 68.0 | 49.0                    | 65.6    |
@@ -135,13 +137,13 @@ pip install vllm
 ```
 命令行一键启动模型服务：
 ```
-vllm serve "/path/Fin-R1" --port 8000 --gpu-memory-utilization 0.9 --max-model-len 16384 --tensor-parallel-size 2 --served-model-name "Fin-R1"
+vllm serve "/path/Fin-R1" --host 0.0.0.0 --port 8000 --gpu-memory-utilization 0.9 --max-model-len 16384 --tensor-parallel-size 2 --served-model-name "Fin-R1"
 ```
 推理运行
 ```
 from openai import OpenAI
-openai_api_key = "your api_key"
-openai_api_base = " "
+openai_api_key = "EMPTY"
+openai_api_base = "http://0.0.0.0:8000/v1"
 
 client = OpenAI(
     api_key = openai_api_key,
