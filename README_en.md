@@ -90,7 +90,7 @@ We use data marked as good after two rounds of filtering as high-quality COT dat
 
 ### Fin-R1-Data Data Distribution:
 Fin-R1-Data covers multi-dimensional financial expertise in Chinese and English, divided into four modules: financial code, knowledge, non-reasoning and reasoning business knowledge, supporting core banking, securities and trust scenarios.
-![grpo](Images/frame_cn.png)         
+![grpo](Images/Data_distribution_en.png)         
 |Dataset|Data Volume|
 |-------------|--------|
 |ConvFinQA-R1-Distill |7629|
