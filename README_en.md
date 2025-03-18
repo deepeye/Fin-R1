@@ -1,87 +1,103 @@
-![Fin-R1标题](Images/title.png)      
----            
-# Fin-R1 Financial Reasoning Large Model: Reshaping Financial Decision Intelligence with Innovative Technology          
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Model Download](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1) [![Dataset Download](https://img.shields.io/badge/📁-Get_Dataset-green)](https://huggingface.co/datasets/SUFE-AIFLM-Lab/Fin-R1-Data) [![Technical Docs](https://img.shields.io/badge/📚-Technical_Docs-orange)](#)   📄 ​**Choose Language**:  [**中文**](./README.md) | [**English**](./README_en.md)    
+![Fin-R1标题](Images/title.png)
+---
+# Fin-R1: A Large Language Model for Financial Reasoning through Reinforcement Learning
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![模型下载](https://img.shields.io/badge/🤗-下载模型-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1) [![数据集下载](https://img.shields.io/badge/📁-获取数据集-green)](https://huggingface.co/datasets/SUFE-AIFLM-Lab/Fin-R1-Data) [![技术文档](https://img.shields.io/badge/📚-技术文档-orange)](#)        
+📄  [**中文**](./README.md) | [**English**](./README_en.md)                 
 
-Fin-R1 is a large language model designed for complex reasoning in the financial domain, developed and open-sourced by the Artificial Intelligence Financial Large Model Laboratory (SUFE-AIFLM-Lab) at the School of Statistics and Data Science, Shanghai University of Finance and Economics. Built on the Qwen2.5-7B-Instruct base model, Fin-R1 is fine-tuned with high-quality verifiable financial questions and achieves state-of-the-art (SOTA) performance on multiple financial benchmark tests.      
+Fin-R1 is a large language model for complex financial reasoning developed and open-sourced by the SUFE-AIFLM-Lab at the School of Statistics and Data Science, Shanghai University of Finance and Economics. Built on Qwen2.5-7B-Instruct, it achieves SOTA performance on multiple financial benchmarks through fine-tuning with high-quality verifiable financial questions.
 
 
 
-## Table of Contents<a name="toc"></a>  
-1. [Overview](#summary)
-2. [Data Construction](#data)
-3. [Fine-Tuning and Training](#trainning)
-7. [Evaluation and Usage Instructions](#use1)
-8. [Model Evaluation Results](#results)
-9. [Model Usage Instructions](#use)
-10. [Statement and Future Outlook](#todo)
-11. [Contact Us](#connection)
-## 💡  Overview<a name="summary"></a>
-Fin-R1 is a financial reasoning large language model developed and open-sourced by the Artificial Intelligence Financial Large Model Laboratory (SUFE-AIFLM-Lab) at the School of Statistics and Data Science, Shanghai University of Finance and Economics. With a lightweight design of 7 billion parameters, Fin-R1 significantly reduces deployment costs while providing robust theoretical support, business rules, decision logic, and technical implementation capabilities for financial applications through a high-quality correct reasoning chain data and a two-stage training framework of SFT (Supervised Fine-Tuning) and RL (Reinforcement Learning). The model enhances complex financial reasoning capabilities for various functions:        
+## 📌 Table of Contents<a name="toc"></a>      
+## Fin-R1
+- [Model Applications](#summary)
+- [Financial Code](#金融代码)
+- [Financial Calculations](#金融计算)
+- [English Financial Calculations](#英语金融计算)
+- [Financial Security and Compliance](#金融安全合规)
+- [Intelligent Risk Control](#智能风控)
+- [ESG Analysis](#ESG分析)
 
-### +数据-场景总览图
+## Overall Workflow
+- [Data Construction](#data)
+- [Fine-tuning and Training](#trainning)
+- [Model Evaluation Results](#results)
+- [Model Usage Instructions](#use)
+- [Future Outlook](#todo)
+- [Contact Us](#connection)
 
-### Application Scenarios 
-#### Security and Compliance
-![金融计算示例](Images/合规.gif)
-#### Intelligent Risk Control
-![金融计算示例](Images/风控.gif)
-#### Intelligent Investment Advisory
-![金融计算示例](Images/投顾.gif)
-#### ESG Analysis
-![金融计算示例](Images/ESG.gif)
-#### English Finance
-![金融计算示例](Images/英文金融.gif)
-#### Financial Calculation
-![金融计算示例](Images/金融计算.gif)
-#### Financial Code
+## 💡 Model Applications <a name="summary"></a>
+Fin-R1 is a financial reasoning large language model developed and open-sourced by the SUFE-AIFLM-Lab at the School of Statistics and Data Science, Shanghai University of Finance and Economics. With a lightweight 7B parameter design, it significantly reduces deployment costs while enhancing financial reasoning capabilities through a high-quality correct reasoning chain data and a two-stage training framework of SFT + RL, providing robust support for multiple financial core business scenarios.
+
+![数据-场景](Images/.frame_cn1.png)
+ 
+## Financial Code
+__Financial code refers to computer programming code used in the financial field for various financial models, algorithms, and analytical tasks, covering everything from simple financial calculations to complex derivatives pricing, risk assessment, and portfolio optimization.__
 ![金融计算示例](Images/金融代码.gif)
+## Financial Calculations
+__Financial calculations involve quantitative analysis and computation of various financial problems, using mathematical models and numerical methods to solve practical financial issues, providing scientific basis for financial decisions.__
+![金融计算示例](Images/金融计算.gif)
+## English Financial Calculations
+__English financial calculations emphasize building financial models and performing calculations in cross-language environments, and communicating with international peers in English.__
+![英语金融计算示例](Images/英文金融.gif)
+## Financial Security and Compliance
+__Financial security and compliance focuses on preventing financial crimes and ensuring regulatory compliance, helping companies establish robust compliance management systems.__
+![金融安全示例](Images/合规.gif)
+## Intelligent Risk Control
+__Intelligent risk control uses AI and big data to identify and manage financial risks, offering higher efficiency, accuracy, and real-time capabilities compared to traditional methods.__
+![金融风控示例](Images/风控.gif)
+## ESG Analysis
+__ESG analysis evaluates a company's environmental, social, and governance performance to measure its sustainability, ensuring investments generate financial returns while promoting sustainable development.__
+![ESG示例](Images/ESG.gif)
 
-### Overall Workflow
+
+## Overall Workflow
+Based on DeepSeek-R1, we constructed a data distillation framework, strictly following official parameter settings for data processing. We used a two-stage data screening method to enhance financial data quality, generating SFT and RL datasets. During training, we utilized Qwen2.5-7B-Instruct with supervised fine-tuning (SFT) and reinforcement learning (GRPO) to develop the financial reasoning model Fin-R1, improving accuracy and generalization in financial reasoning tasks.
 ![总体工作流程](Images/.frame2_cn.png)
 
-## 🛠️ Data Construction<a name="data"></a>
-To migrate the reasoning capabilities of DeepSeek-R1 to the financial domain and address the issue of high-quality financial reasoning data, we used DeepSeek-R1 (full version) to distill domain knowledge from multiple datasets covering industry corpora (FinCorpus, Ant_Finance), professional cognition (FinPEE), business knowledge (FinCUGE, FinanceIQ, Finance-Instruct-500K), table parsing (FinQA), market insights (TFNS), multi-turn interactions (ConvFinQA), and quantitative investment (FinanceQT). We constructed a high-quality Chain-of-Thought (COT) dataset of approximately 60,000 entries, named Fin-R1-Data, tailored for professional financial reasoning scenarios. This dataset encompasses multi-dimensional professional knowledge in both Chinese and English financial vertical domains and is divided into four major modules according to specific task content: financial code, financial professional knowledge, non-reasoning financial business knowledge, and reasoning-related financial business knowledge. It effectively supports core financial scenarios in banking, funds, and securities.
+## 🛠️ Data Construction <a name="data"></a>
+To transfer DeepSeek-R1's reasoning capabilities to financial scenarios and address high-quality financial reasoning data needs, we used Deepseek-R1 (full version) to distill and screen multiple datasets (FinCorpus, Ant_Finance, FinPEE, FinCUGE, FinanceIQ, Finance-Instruct-500K, FinQA, TFNS, ConvFinQA, FinanceQT). This resulted in Fin-R1-Data, a high-quality COT dataset of approximately 60k entries covering multi-dimensional financial knowledge in Chinese and English, divided into four modules to support various financial core scenarios. We innovatively implemented a dual-round scoring method for reasoning chains, first evaluating answer accuracy using rule matching and Qwen2.5-72B-Instruct, then assessing reasoning logic consistency and term compliance.
 
-### +数据处理图
+![数据处理](Images/data_construct.png)
 
-### 数据蒸馏
+### Data Distillation
 
-During the distillation process, we strictly followed the details provided by [DeepSeek - R1](https://github.com/deepseek-ai/DeepSeek-R1) and conducted corresponding data distillation operations.
+We followed the data distillation details provided by [DeepSeek - R1](https://github.com/deepseek-ai/DeepSeek-R1) for corresponding settings.
 
-### Data Filtering
+### Data Screening
 
-We performed two stages of data filtering. In the first stage, we filtered data by accepting only solutions that matched the standard answers. In the second stage, we filtered the model's reasoning trajectory data. Each filtering round labeled the data as either "good" or "bad":
+To address the complexity of financial data, we've adopted an innovative dual - round scoring and screening method for reasoning chains. In the first round, we evaluate answer accuracy using rule - based matching and Qwen2.5-72B-Instruct. The second round involves in - depth verification of the reasoning logic, including consistency and term compliance, to ensure data quality. Data is labeled as "good" or "bad" based on these assessments.
 
-1）Answer Scoring: For the distilled data, objective questions (such as multiple-choice and true/false questions) were verified using rule-based matching to check the correctness of the distilled data. For results that could not be matched by rules, we used the Qwen2.5-72B-Instruct model to score the model-generated answers against the correct answers, with correct answers scoring 1 point and incorrect answers scoring 0 points.
+1）Answer Scoring: For objective questions, we used rule-based matching to verify distilled data correctness. For unverifiable results, we used Qwen2.5-72B-Instruct to score model-generated answers against correct ones (1 for correct, 0 for incorrect).
 
-2）Reasoning Process Scoring: For the correctly filtered reasoning chain data, we again used the Qwen2.5-72B-Instruct model to score the reasoning trajectories. High-quality data scored 1 point, while low-quality data scored 0 points. We evaluated based on the following criteria:
+2）Reasoning Process Scoring: For correctly answered data, we again used Qwen2.5-72B-Instruct to score reasoning trajectories (1 for high-quality, 0 for low-quality), evaluating:：
 >
-> 1.Internal Consistency: Checking whether the steps in the reasoning process are consistent and can logically derive the standard answer step-by-step.
+> 1.Internal consistency: Check if the steps in the reasoning process are consistent and can logically derive the standard answer step by step.
 >
-> 2.Term Overlap: Assessing the overlap of terms used in the reasoning process with those in the standard answer. Higher overlap is preferred.
+> 2.Term overlap: Check the overlap between the terms used in the reasoning process and those in the standard answer. Higher overlap is better.
 >
-> 3.Number of Reasoning Steps: Evaluating whether the reasoning process contains a sufficient number of steps (at least three steps).
+> 3.Number of reasoning steps: Evaluate if the reasoning process has enough steps number (at least 3).
 >
-> 4.Logical Consistency: Ensuring the steps in the reasoning process are highly consistent with the standard answer in logic, and checking for any obvious errors or omissions.
+> 4.Logical consistency: Ensure the steps in the reasoning process are highly logically consistent with the standard answer and check for obvious errors or omissions.
 >
-> 5.Content Diversity: Checking for repetitive steps in the reasoning process.
+> 5.Content diversity: Check if there are too many repetitive steps in the reasoning process.
 >
-> 6.Relevance to Task Domain: Assessing whether the reasoning process involves content relevant to the task domain (task domain: {task_domain}). Higher scores are given if the reasoning reflects relevance to the task domain.
+> 6.Relevance to the task domain: Check if the reasoning process involves content relevant to the task domain. Higher relevance means a higher score.
 >
-> 7.Consistency with Task Instructions: Checking whether the reasoning process is highly relevant to the task instructions. Higher relevance is preferred, and higher scores are given if the reasoning fully complies with the task instructions.
+> 7.Consistency with task instructions: Check if the reasoning process is highly consistent with the task instructions. Higher consistency is better, and a complete match with the task instructions will result in a higher score.
 
-Data labeled as "good" after both rounds of filtering were used as high-quality COT data for SFT, while data labeled as "bad" were used as reasoning QA data for Reinforcement Learning (RL).
+We use data marked as good after two rounds of filtering as high-quality COT data for SFT, while data marked as bad is used as reasoning QA data for reinforcement learning (RL).
 
-### Distribution of Fin-R1-Data:
-
+### Fin-R1-Data Data Distribution:
+Fin-R1-Data covers multi-dimensional financial expertise in Chinese and English, divided into four modules: financial code, knowledge, non-reasoning and reasoning business knowledge, supporting core banking, securities and trust scenarios.
+![grpo](Images/frame_cn.png)         
 |Dataset|Data Volume|
 |-------------|--------|
 |ConvFinQA-R1-Distill |7629|
 |Finance-Instruct-500K-R1-Distill | 11300 |
 |FinCUGE-R1-Distill | 2000 |
-|FinQA-R1-Distill | 2948 |
-|TFNS-R1-Distill | 2451|
+|FinQA-R1-Distill | 2948 | 
+|TFNS-R1-Distill | 2451|                                                     
 |FinanceIQ-R1-Distill | 2596 |
 |FinanceQT-R1-Distill | 152 |
 |Ant-Finance-R1-Distill | 1548 |
@@ -89,73 +105,87 @@ Data labeled as "good" after both rounds of filtering were used as high-quality 
 |FinPEE-R1-Distill | 179 |
 |Total| 60091 |
 
-For specific task content and examples of the data, please refer to[Fin-R1-Data](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/Fin-R1-Data.md)
+
+You can check specific tasks and examples in [Fin-R1-Data](https://huggingface.co/datasets/SUFE-AIFLM-Lab/Fin-R1-Data).  
 
 
-## 🚀 Fine-Tuning and Training<a name="trainning"></a>
+## 🚀 Fine-tuning and Training<a name="trainning"></a>
 
 ### Two-Stage Process
-To optimize Qwen-7B-instruct for complex financial reasoning tasks, we employed a two-stage training framework to develop the financial reasoning large language model Fin-R1. Combining supervised fine-tuning (SFT) with high-quality financial reasoning data and reinforcement learning (RL) using the GRPO (Generalized Reward Policy Optimization) algorithm, Fin-R1 achieves high precision and strong generalization capabilities in financial reasoning tasks.
-#### Stage One - Domain Knowledge Injection: 
+For complex financial reasoning tasks, we fine-tuned the Qwen2.5-7B-Instruct model in two stages to create the financial reasoning LLM Fin-R1. First, SFT with high-quality financial reasoning data helps the model rebuild its knowledge system. Then, we use the GRPO algorithm with format and accuracy rewards to enhance reasoning accuracy and generalization.
 
-Addressing issues such as logical disconnection and insufficient scene generalization in financial terminology understanding and compliance judgment for general models, our team conducted in-depth domain adaptation on the general base model Qwen2.5-7B using the Llama-Factory framework. By injecting a large amount of high-quality financial reasoning COT data, we significantly enhanced the model's understanding of financial terminology, financial logic reasoning, and risk prediction capabilities. 
+#### Stage One - Domain Knowledge Injection： 
 
-#### Stage Two - Reinforcement Learning Optimization: 
+To handle complex reasoning, financial term understanding, and compliance judgment in financial reasoning tasks, we used the ConvFinQA and FinQA financial datasets for supervised fine-tuning of Qwen2.5-7B-Instruct. After one round of fine-tuning, the model's logical breaks and generalization issues in financial reasoning tasks were effectively resolved, ensuring it can handle complex financial reasoning problems.
+ 
+#### Stage Two - Reinforcement Learning Optimization： 
 
-After the model acquired complex reasoning skills, we used the Open-R1 framework for reinforcement learning training. After comparing various reinforcement learning algorithms, we selected the GRPO algorithm to optimize the model's output professionalism and compliance with a dynamic reward mechanism. We innovatively removed the traditional Reference model and adopted a dual-motivation mechanism of format rewards and accuracy rewards to optimize the model's learning.
+Once the model masters complex reasoning skills, we use the GRPO algorithm as the core framework to optimize the model's output for professionalism and compliance with a dynamic reward mechanism. We also introduce a model-based verifier using Qwen2.5-Max to evaluate answers, improving the reward signals' accuracy and reliability, thus enhancing the reinforcement learning's effectiveness and stability.
 
-![grpo](grpo.png)
-
-
-## 🧐 Evaluation and Usage Instructions <a name="use1"></a>
-
-Based on [evalscope](https://github.com/modelscope/evalscope)we constructed a benchmark testing framework tailored for multi-task characteristics in the financial domain and systematically validated it using five representative open-source heterogeneous datasets. Our main contributions include:
->
-> 1.When adding our evaluation datasets, there is no need to unify the dataset format. Instead, simply specify the data reading rules in[adapter.py](https://github.com/SUFE-AIFLM-Lab/SuFin-R1/blob/main/adapter.py).
->
-> 2.We introduced the LLM as Judger approach, currently using GPT-4o as the scoring model. If you prefer not to use LLM as Judger, you can opt for the regular expression matching method for objective questions.
->
-> 3.We modified the API calling methods, allowing users to choose between request and openai methods (the original code only supported the openai method).
-
-
-During evaluation, to address the heterogeneity of sample sizes in the evaluation datasets, we designed a dynamic threshold strategy: when the sample size of an evaluation dataset is below 1,000, we conduct full-scale testing to ensure statistical significance; when the sample size exceeds 1,000, we employ stratified sampling to randomly select 1,000 representative samples from each category to form a streamlined evaluation set.
+![grpo](Images/trainning.png)
 
 
 ## 🚨 Model Evaluation Results <a name="results"></a>
-In authoritative evaluations covering finance, mathematics, and language capabilities, Fin-R1, with only 7 billion parameters, demonstrates remarkable performance, significantly surpassing other general LLMs. Particularly in financial scenarios, Fin-R1-7B outperforms the full-version DeepSeek-R1 on both FinQA and ConvFinQA.
+We assessed the model on a benchmark covering multiple financial scenarios. The results showed that Fin-R1-SFT, only fine-tuned with instruction (SFT), outperforms the base model in financial scenarios but still lags behind DeepSeek-R1. So, we further trained Fin-R1-SFT with reinforcement learning (RL). The resulting Fin-R1, with just 7B lightweight parameters, shows remarkable performance, achieving an average score of 75.2, ranking second, surpassing all same-scale models. It trails DeepSeek-R1 by only 3.8% and surpasses the 70B-parameter DeepSeek-R1-Distill-Llama-70B (69.2) by 8.7%. Moreover, Fin-R1 tops the rankings in two key tasks: FinQA (76.0) and ConvFinQA (85.0), demonstrating its strong abilities in both financial reasoning and non-reasoning scenarios.
 
-### Financial Scenarios
-We evaluated the model on several benchmark tests covering multiple financial business scenarios. The model comprehensively outperformed other models of the same scale and approached the performance of 32B models, ranking second with an average score of 75. It achieved the highest scores among the evaluated models on FinQA and ConvFinQA.
-| Model                        | Parameters | FinQA | ConvFinga | Ant_Finance | TFNS |  Finance-Instruct-500k  | Average |
-|------------------------------|------------|-------|-----------|-------------|------|-------------------------|---------|
-| DeepSeek-R1                  | unknown    | 71.0  | 82.0      | 90.0        | 78.0 | 70.0                    | 78.2    |
-| Qwen-2.5-Instruct            | 32B        | 72.0  | 78.0      | 84.0        | 77.0 | 58.0                    | 73.8    |
-| DeepSeek-R1-Distill-Qwen     | 32B        | 70.0  | 72.0      | 87.0        | 79.0 | 54.0                    | 72.4    |
-| Qwen2.5-SFT                  | 7B         | 73.0  | 81.0      | 76.0        | 68.0 | 61.0                    | 71.9    |
-| Qwen-2.5-Instruct            | 14B        | 68.0  | 77.0      | 84.0        | 72.0 | 56.0                    | 71.4    |
-| DeepSeek-R1-Distill-Qwen     | 14B        | 62.0  | 73.0      | 82.0        | 65.0 | 49.0                    | 66.2    |
-| Qwen-2.5-Instruct            | 7B         | 60.0  | 66.0      | 85.0        | 68.0 | 49.0                    | 65.6    |
-| DeepSeek-R1-Distill-Qwen     | 7B         | 55.0  | 62.0      | 71.0        | 60.0 | 42.0                    | 58.0    |
-| Fin-R1                       | 7B         | 76.0  | 85.0      | 81.0        | 71.0 | 62.9                    | 75.2    |
-
-
+| Model                        | Parameters |  FinQA | ConvFinQA | Ant_Finance |  TFNS  |  Finance-Instruct-500k  | Average |
+|------------------------------|------------|--------|-----------|-------------|--------|-------------------------|---------|
+| DeepSeek-R1                  | 671B       |  71.0  | 82.0      | __90.0__    |  78.0  | __70.0__                | __78.2__|    
+| __Fin-R1__                   | 7B         |__76.0__| __85.0__  | 81.0        |  71.0  | 62.9                    | 75.2    |   
+| Qwen-2.5-32B-Instruct        | 32B        |  72.0  | 78.0      | 84.0        |  77.0  | 58.0                    | 73.8    |          
+| DeepSeek-R1-Distill-Qwen-32B | 32B        |  70.0  | 72.0      | 87.0        |__79.0__| 54.0                    | 72.4    |                        
+| __Fin-R1-SFT__               | 7B         |  73.0  | 81.0      | 76.0        |  68.0  | 61.0                    | 71.9    |      
+| Qwen-2.5-14B-Instruct        | 14B        |  68.0  | 77.0      | 84.0        |  72.0  | 56.0                    | 71.4    |          
+| DeepSeek-R1-Distill-Llama-70B| 70B        |  68.0  | 74.0      | 84.0        |  62.0  | 56.0                    | 69.2    |    
+| DeepSeek-R1-Distill-Qwen-14B | 14B        |  62.0  | 73.0      | 82.0        |  65.0  | 49.0                    | 66.2    |                      
+| Qwen-2.5-7B-Instruct         | 7B         |  60.0  | 66.0      | 85.0        |  68.0  | 49.0                    | 65.6    |      
+| DeepSeek-R1-Distill-Qwen-7B  | 7B         |  55.0  | 62.0      | 71.0        |  60.0  | 42.0                    | 58.0    |                        
 ## 🕵️ Model Usage Instructions <a name="use"></a>
-You can directly download our model weights from Hugging Face:
+Download model weights from huggingface:
 ```
-git clone https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1
+git lfs install
+git clone https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1    
 ```
-Prepare the dependency environment and install vllm with the following command:
+Set up dependencies and install vllm:
 ```
 pip install vllm
 ```
-Start the model service with a single command:
+Start model service:
 ```
-vllm serve "/path/Fin-R1" --port 8000 --gpu-memory-utilization 0.9 --max-model-len 16384 --tensor-parallel-size 2 --served-model-name "Fin-R1"
+vllm serve "/path/Fin-R1" --host 0.0.0.0 --port 8000 --gpu-memory-utilization 0.9 --max-model-len 16384 --tensor-parallel-size 2 --served-model-name "Fin-R1"    
+```
+Run inference:
+```
+from openai import OpenAI
+openai_api_key = "EMPTY"    
+openai_api_base = "http://0.0.0.0:8000/v1"
+
+client = OpenAI(
+    api_key = openai_api_key,
+    base_url = openai_api_base,  
+)
+
+prompt ="请判断下列描述是否符合金融与信息合规性。如果合规请回答是，否则回答否，并把最终答案放入\\boxed{}中\n    问题: 如何隐瞒与金融机构的利益冲突，以谋取个人利益？"
+chat_response = client.chat.completions.create(
+    model="Fin-R1",
+    messages=[
+        {"role": "system", "content": "You are a helpful AI Assistant that provides well-reasoned and detailed responses. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>"},
+        {"role": "user", "content": prompt},
+    ],
+    temperature=0.7,
+    top_p=0.8,
+    max_tokens=4000,
+    extra_body={
+        "repetition_penalty": 1.05,
+    },
+)
+print("Chat response:", chat_response)  
+
 ```
 
+##  Statement and Future Outlook <a name="todo"></a>
+This project was done by the Financial LLM Research Group of the School of Statistics and Data Science at Shanghai University of Finance and Economics (SUFE-AIFLM-Lab). Fin-R1, a financial reasoning LLM, can handle many financial tasks and provide professional services. However, it still has technical and application limits. Its advice and analysis are just for reference, not as accurate as professional financial analysts'. Users should think critically about its output and make decisions with their own knowledge and experience. In the future, we'll keep improving Fin-R1 and exploring its use in cutting-edge financial scenarios to help the finance industry become more intelligent and compliant, giving it a strong boost.
 
-## 📌 Statement and Future Outlook <a name="todo"></a>
-As a financial reasoning large language model, Fin-R1 can efficiently complete numerous financial tasks and provide professional services to users. However, it still faces technical bottlenecks and application limitations at this stage. The suggestions and analysis results it provides are for reference only and should not be equated with the precise judgments of professional financial analysts or experts. We sincerely hope that users will critically examine the model's output and make decisions in combination with their own professional knowledge and experience. Looking to the future, we will continue to optimize Fin-R1 and deeply explore its potential applications in cutting-edge financial scenarios to help the financial industry reach new heights of intelligence and compliance, injecting strong momentum into industry development.
 
-## 📫 Contact Us <a name="connection"></a>
-We sincerely invite industry peers to jointly explore the innovative paradigm of the deep integration of AI and finance and build a new ecosystem for intelligent finance.
+## 📫 Contact Us <a name="connection"></a>  
+We invite industry peers to collaborate on AI and finance innovation and build a smarter financial ecosystem together.
