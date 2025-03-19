@@ -2,10 +2,10 @@
 ---
 <div align="center">
 <h1>Fin-R1：通过强化学习驱动的金融推理大模型<h1>
-</div>  
+</div>    
 <div align="center">
  
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![模型下载](https://img.shields.io/badge/🤗-下载模型-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1) [![数据集下载](https://img.shields.io/badge/📁-获取数据集-green)](https://huggingface.co/datasets/SUFE-AIFLM-Lab/Fin-R1-Data) [![技术文档](https://img.shields.io/badge/📚-技术文档-orange)](#)          📄 [ZH](./README.md) | [EN](./README_en.md)                 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![模型下载](https://img.shields.io/badge/🤗-下载模型-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1) [![数据集下载](https://img.shields.io/badge/📁-获取数据集-green)](https://huggingface.co/datasets/SUFE-AIFLM-Lab/Fin-R1-Data) [![技术文档](https://img.shields.io/badge/📚-技术文档-orange)](#)          📄 [ZH](./README.md) | [EN](./README_en.md)                   
 </div>        
      
 
@@ -13,23 +13,22 @@ Fin-R1 是一款针对金融领域复杂推理的大型语言模型，由上海�
 
 
 
-## 📌 目录<a name="toc"></a>      
-## Fin-R1
-- [模型应用](#summary)
-- [金融代码](#金融代码)
-- [金融计算](#金融计算)
-- [英语金融计算](#英语金融计算)
-- [金融安全合规](#金融安全合规)
-- [智能风控](#智能风控)
-- [ESG分析](#ESG分析)
+## 📌 目录<a name="toc"></a>  
 
-## 总体工作流程
-- [数据构建](#data)
-- [微调训练](#trainning)
-- [模型评测结果](#results)
-- [模型使用方法](#use)
-- [未来展望](#todo)
-- [联系我们](#connection)
+### [总体工作流程](#总体工作流程)  
+  - [场景应用](#场景应用)  
+    - [金融代码](#金融代码)  
+    - [金融计算](#金融计算)  
+    - [英语金融计算](#英语金融计算)  
+    - [金融安全合规](#金融安全合规)  
+    - [智能风控](#智能风控)  
+    - [ESG分析](#ESG分析)  
+  - [数据构建](#data)  
+  - [微调训练](#trainning)  
+  - [模型评测结果](#results)  
+  - [模型使用方法](#use)  
+  - [未来展望](#todo)  
+  - [联系我们](#connection)  
 
 ## 💡 模型应用 <a name="summary"></a>
 Fin-R1 是一款专为金融推理领域设计的大型语言模型，采用轻量化的 7B 参数量级架构。在显著降低部署成本的同时，该模型通过在针对金融推理场景的高质量思维链数据上采用 SFT（监督微调）和 RL（强化学习）两阶段训练，为模型在金融领域的应用提供了坚实的理论支撑、业务规则、决策逻辑以及技术实现能力，从而有效提升模型的金融复杂推理能力，为银行、证券、保险以及信托等金融核心业务场景提供有力支持。
