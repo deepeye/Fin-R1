@@ -3,7 +3,7 @@
 <div align="center">
   <h1>Fin-R1: A Large Language Model for Financial Reasoning through Reinforcement Learning</h1>
  
- [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Model Download](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1)  [![Technical Documentation](https://img.shields.io/badge/📚-Technical_Docs-orange)](#) 📄 [中文](./README.md) | [EN](./README_en.md)                                        
+ [![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://safewatch-aiguard.github.io/) [![Model Download](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1)  [![Technical Documentation](https://img.shields.io/badge/📚-Technical_Docs-orange)](#) 📄 [中文](./README.md) | [EN](./README_en.md)                                        
 
 </div>
 
