@@ -3,9 +3,7 @@
 <div align="center">
 <h1>Fin-R1：通过强化学习驱动的金融推理大模型</h1>
  
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![模型下载](https://img.shields.io/badge/🤗-下载模型-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1) [![技术文档](https://img.shields.io/badge/📚-技术文档-orange)](#)       
-
-📄 [中文](./README.md) | [EN](./README_en.md)  
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![模型下载](https://img.shields.io/badge/🤗-下载模型-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1) [![技术文档](https://img.shields.io/badge/📚-技术文档-orange)](#) 📄 [中文](./README.md) | [EN](./README_en.md)    
 </div>
 
 Fin-R1 是一款针对金融领域复杂推理的大型语言模型，由上海财经大学统计与数据科学学院人工智能金融大模型实验室（SUFE-AIFLM-Lab）开发并开源。该模型以 Qwen2.5-7B-Instruct 为基座，通过高质量的可验证金融问题微调训练，最终表现在多个金融领域基准测试上的表现达到参评模型的SOTA水平。
