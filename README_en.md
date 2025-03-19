@@ -5,7 +5,7 @@
  
  [![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://safewatch-aiguard.github.io/) [![Model Download](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1)  [![Technical Report](https://img.shields.io/badge/📚-Technical_Docs-orange)](#)                     
 
-📄 [中文](./README.md) | [EN](./README_en.md)                                                
+ 📄 [中文](./README.md) | [EN](./README_en.md)                                                    
 
 </div>
 
