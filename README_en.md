@@ -23,7 +23,7 @@ Fin-R1 is a large language model for complex financial reasoning developed and o
 - [Overall Workflow](#Workflow)              
   - [Data Construction](#data)            
   - [Fine-tuning and Training](#trainning)
-  - [Model Evaluation Results](#results)      
+  - [Model Evaluation Results](#results)        
   - [Model Usage Instructions](#use)
 - [Future Outlook](#todo)
 - [Contact Us](#connection)
@@ -40,7 +40,7 @@ __Financial code refers to computer programming code used in the financial field
 ![金融计算示例](Images/金融代码.gif)
 
 ## Financial Calculations <a name="eg2"></a>
-__Financial calculations involve quantitative analysis and computation of various financial problems, using mathematical models and numerical methods to solve practical financial issues, providing scientific basis for financial decisions.__  
+__Financial calculations involve quantitative analysis and computation of various financial problems, using mathematical models and numerical methods to solve practical financial issues, providing scientific basis for financial decisions.__      
 ![金融计算示例](Images/金融计算.gif)
 
 ## English Financial Calculations <a name="eg3"></a>  
@@ -60,9 +60,9 @@ __ESG analysis evaluates a company's environmental, social, and governance perfo
 ![ESG示例](Images/ESG.gif)
 
 
-## Overall Workflow  <a name="Workflow"></a>        
-Based on DeepSeek-R1, we constructed a data distillation framework, strictly following official parameter settings for data processing. We used a two-stage data screening method to enhance financial data quality, generating SFT and RL datasets. During training, we utilized Qwen2.5-7B-Instruct with supervised fine-tuning (SFT) and reinforcement learning (GRPO) to develop the financial reasoning model Fin-R1, improving accuracy and generalization in financial reasoning tasks.    
-![总体工作流程](Images/Fin-R1-pipeline_英.png)
+## Overall Workflow  <a name="Workflow"></a>          
+Based on DeepSeek-R1, we constructed a data distillation framework, strictly following official parameter settings for data processing. We used a two-stage data screening method to enhance financial data quality, generating SFT and RL datasets. During training, we utilized Qwen2.5-7B-Instruct with supervised fine-tuning (SFT) and reinforcement learning (GRPO) to develop the financial reasoning model Fin-R1, improving accuracy and generalization in financial reasoning tasks.        
+![总体工作流程](Images/Fin-R1-pipeline_英_.png)  
 
 ## 🛠️ Data Construction <a name="data"></a>
 To transfer DeepSeek-R1's reasoning capabilities to financial scenarios and address high-quality financial reasoning data needs, we used Deepseek-R1 (full version) to distill and screen multiple datasets (FinCorpus, Ant_Finance, FinPEE, FinCUGE, FinanceIQ, Finance-Instruct-500K, FinQA, TFNS, ConvFinQA, FinanceQT). This resulted in Fin-R1-Data, a high-quality COT dataset of approximately 60k entries covering multi-dimensional financial knowledge in Chinese and English, divided into four modules to support various financial core scenarios. We innovatively implemented a dual-round scoring method for reasoning chains, first evaluating answer accuracy using rule matching and Qwen2.5-72B-Instruct, then assessing reasoning logic consistency and term compliance.    
@@ -71,7 +71,7 @@ To transfer DeepSeek-R1's reasoning capabilities to financial scenarios and addr
 
 ### Data Distillation
 
-We followed the data distillation details provided by [DeepSeek - R1](https://github.com/deepseek-ai/DeepSeek-R1) for corresponding settings.  
+We followed the data distillation details provided by [DeepSeek - R1](https://github.com/deepseek-ai/DeepSeek-R1) for corresponding settings.    
 
 ### Data Screening  
 
@@ -95,11 +95,11 @@ To address the complexity of financial data, we've adopted an innovative dual - 
 >
 > 7.Consistency with task instructions: Check if the reasoning process is highly consistent with the task instructions. Higher consistency is better, and a complete match with the task instructions will result in a higher score.
 
-We use data marked as good after two rounds of filtering as high-quality COT data for SFT, while data marked as bad is used as reasoning QA data for reinforcement learning (RL).
+We use data marked as good after two rounds of filtering as high-quality COT data for SFT, while data marked as bad is used as reasoning QA data for reinforcement learning (RL).  
 
 ### Fin-R1-Data Data Distribution:
 Fin-R1-Data covers multi-dimensional financial expertise in Chinese and English, divided into four modules: financial code, knowledge, non-reasoning and reasoning business knowledge, supporting core banking, securities and trust scenarios.    
-![grpo](Images/Data_distribution_en.png)         
+![grpo](Images/Data_distribution_en.png)           
 |Dataset|Data Volume|
 |-------------|--------|
 |ConvFinQA-R1-Distill |7629|
@@ -140,7 +140,7 @@ We assessed the model on a benchmark covering multiple financial scenarios. The 
 | DeepSeek-R1-Distill-Qwen-32B | 32B        |  70.0  | 72.0      | 87.0        |__79.0__| 54.0                    | 72.4    |                          
 | __Fin-R1-SFT__               | 7B         |  73.0  | 81.0      | 76.0        |  68.0  | 61.0                    | 71.9    |        
 | Qwen-2.5-14B-Instruct        | 14B        |  68.0  | 77.0      | 84.0        |  72.0  | 56.0                    | 71.4    |            
-| DeepSeek-R1-Distill-Llama-70B| 70B        |  68.0  | 74.0      | 84.0        |  62.0  | 56.0                    | 69.2    |    
+| DeepSeek-R1-Distill-Llama-70B| 70B        |  68.0  | 74.0      | 84.0        |  62.0  | 56.0                    | 69.2    |      
 | DeepSeek-R1-Distill-Qwen-14B | 14B        |  62.0  | 73.0      | 82.0        |  65.0  | 49.0                    | 66.2    |                      
 | Qwen-2.5-7B-Instruct         | 7B         |  60.0  | 66.0      | 85.0        |  68.0  | 49.0                    | 65.6    |        
 | DeepSeek-R1-Distill-Qwen-7B  | 7B         |  55.0  | 62.0      | 71.0        |  60.0  | 42.0                    | 58.0    |  
