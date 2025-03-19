@@ -3,7 +3,7 @@
 <div align="center">
 <h1>Fin-R1：通过强化学习驱动的金融推理大模型</h1>
  
-[![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://safewatch-aiguard.github.io/) [![模型下载](https://img.shields.io/badge/🤗-下载模型-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1) [![技术文档](https://img.shields.io/badge/📚-技术文档-orange)](#) 
+[![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://safewatch-aiguard.github.io/) [![模型下载](https://img.shields.io/badge/🤗-下载模型-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1) [![技术报告](https://img.shields.io/badge/📚-技术文档-orange)](#)   
 
 📄 [中文](./README.md) | [EN](./README_en.md)      
 </div>
