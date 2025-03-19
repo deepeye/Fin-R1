@@ -3,11 +3,12 @@
 <div align="center">
   <h1>Fin-R1: A Large Language Model for Financial Reasoning through Reinforcement Learning</h1>
  
- [![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://safewatch-aiguard.github.io/) [![Model Download](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1)  [![Technical Documentation](https://img.shields.io/badge/📚-Technical_Docs-orange)](#) 📄 [中文](./README.md) | [EN](./README_en.md)                                        
+ [![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://safewatch-aiguard.github.io/) [![Model Download](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1)  [![Technical Report](https://img.shields.io/badge/📚-Technical_Docs-orange)](#)                     
+📄 [中文](./README.md) | [EN](./README_en.md)                                          
 
 </div>
 
-Fin-R1 is a large language model for complex financial reasoning developed and open-sourced by the SUFE-AIFLM-Lab at the School of Statistics and Data Science, Shanghai University of Finance and Economics. Built on Qwen2.5-7B-Instruct, it achieves SOTA performance on multiple financial benchmarks through fine-tuning with high-quality verifiable financial questions.    
+Fin-R1 is a large language model for complex financial reasoning developed and open-sourced by the SUFE-AIFLM-Lab at the School of Statistics and Data Science, Shanghai University of Finance and Economics. Built on Qwen2.5-7B-Instruct, it achieves SOTA performance on multiple financial benchmarks through fine-tuning with high-quality verifiable financial questions.        
 
 
 
@@ -22,7 +23,7 @@ Fin-R1 is a large language model for complex financial reasoning developed and o
 - [Overall Workflow](#Workflow)              
   - [Data Construction](#data)            
   - [Fine-tuning and Training](#trainning)
-  - [Model Evaluation Results](#results)    
+  - [Model Evaluation Results](#results)      
   - [Model Usage Instructions](#use)
 - [Future Outlook](#todo)
 - [Contact Us](#connection)
@@ -30,7 +31,7 @@ Fin-R1 is a large language model for complex financial reasoning developed and o
   
 
 ## 💡 Model Applications <a name="summary"></a>  
-Fin-R1 is a large language model specifically designed for the field of financial reasoning, featuring a lightweight 7B parameter architecture. While significantly reducing deployment costs, the model undergoes a two-stage training process—Supervised Fine-Tuning (SFT) and Reinforcement Learning (RL)—on high-quality chain-of-thought data tailored for financial reasoning scenarios. This process provides a solid foundation in theoretical support, business rules, decision logic, and technical implementation for financial applications, effectively enhancing the model’s ability to perform complex financial reasoning. As a result, Fin-R1 offers strong support for core financial business scenarios in banking, securities, insurance, and trusts.        
+Fin-R1 is a large language model specifically designed for the field of financial reasoning, featuring a lightweight 7B parameter architecture. While significantly reducing deployment costs, the model undergoes a two-stage training process—Supervised Fine-Tuning (SFT) and Reinforcement Learning (RL)—on high-quality chain-of-thought data tailored for financial reasoning scenarios. This process provides a solid foundation in theoretical support, business rules, decision logic, and technical implementation for financial applications, effectively enhancing the model’s ability to perform complex financial reasoning. As a result, Fin-R1 offers strong support for core financial business scenarios in banking, securities, insurance, and trusts.          
 
 ![数据-场景](Images/.frame_cn1.png)
  
@@ -119,17 +120,12 @@ Fin-R1-Data covers multi-dimensional financial expertise in Chinese and English,
 
 ## 🚀 Fine-tuning and Training<a name="trainning"></a>
 
-### Two-Stage Process
-For complex financial reasoning tasks, we fine-tuned the Qwen2.5-7B-Instruct model in two stages to create the financial reasoning LLM Fin-R1. First, SFT with high-quality financial reasoning data helps the model rebuild its knowledge system. Then, we use the GRPO algorithm with format and accuracy rewards to enhance reasoning accuracy and generalization.  
-
-#### Stage One - Domain Knowledge Injection： 
-
-To handle complex reasoning, financial term understanding, and compliance judgment in financial reasoning tasks, we used the ConvFinQA and FinQA financial datasets for supervised fine-tuning of Qwen2.5-7B-Instruct. After one round of fine-tuning, the model's logical breaks and generalization issues in financial reasoning tasks were effectively resolved, ensuring it can handle complex financial reasoning problems.        
- 
-#### Stage Two - Reinforcement Learning Optimization：     
-
-Once the model masters complex reasoning skills, we use the GRPO algorithm as the core framework to optimize the model's output for professionalism and compliance with a dynamic reward mechanism. We also introduce a model-based verifier using Qwen2.5-Max to evaluate answers, improving the reward signals' accuracy and reliability, thus enhancing the reinforcement learning's effectiveness and stability.
-
+### Two-Stage Process             
+For complex reasoning tasks in the financial domain, we developed the financial reasoning large language model Fin-R1 through two-phase fine-tuning of Qwen2.5-7B-Instruct. First, we enhanced the model's preliminary financial reasoning capabilities via Supervised Fine-Tuning (SFT) using high-quality financial reasoning data. Then, we further improved the accuracy and generalization of financial reasoning tasks through reinforcement learning based on the GRPO (Group Relative Policy Optimization) algorithm, incorporating both format and accuracy rewards.    
+#### Stage One - Infusion of Reasoning Capabilities:                                          
+To address complex reasoning in financial tasks, we conducted supervised fine-tuning on Qwen2.5-7B-Instruct using financial datasets ConvFinQA and FinQA. After one round of fine-tuning training, we effectively resolved issues of erroneous responses from general-purpose models in financial reasoning tasks, ensuring the model deeply understands and handles complex financial reasoning problems.                
+#### Stage Two - Reinforcement Learning Optimization：                               
+After equipping the model with complex reasoning skills, we adopted the GRPO algorithm as the core framework to optimize output format and accuracy through a dual-reward mechanism. Additionally, we introduced a Model-Based Verifier, leveraging Qwen2.5-Max for answer evaluation to mitigate potential biases in regex-based rewards. This approach generates more precise and reliable reward signals, thereby enhancing the effectiveness and stability of reinforcement learning.          
 ![grpo](Images/trainning.png)
 
 
@@ -138,16 +134,16 @@ We assessed the model on a benchmark covering multiple financial scenarios. The 
 
 | Model                        | Parameters |  FinQA | ConvFinQA | Ant_Finance |  TFNS  |  Finance-Instruct-500k  | Average |
 |------------------------------|------------|--------|-----------|-------------|--------|-------------------------|---------|
-| DeepSeek-R1                  | 671B       |  71.0  | 82.0      | __90.0__    |  78.0  | __70.0__                | __78.2__|     
+| DeepSeek-R1                  | 671B       |  71.0  | 82.0      | __90.0__    |  78.0  | __70.0__                | __78.2__| 
+| __Fin-R1__                   | 7B         |__76.0__| __85.0__  | 81.0        |  71.0  | 62.9                    | 75.2    |  
 | Qwen-2.5-32B-Instruct        | 32B        |  72.0  | 78.0      | 84.0        |  77.0  | 58.0                    | 73.8    |          
-| DeepSeek-R1-Distill-Qwen-32B | 32B        |  70.0  | 72.0      | 87.0        |__79.0__| 54.0                    | 72.4    |                        
-| __Fin-R1-SFT__               | 7B         |  73.0  | 81.0      | 76.0        |  68.0  | 61.0                    | 71.9    |      
-| Qwen-2.5-14B-Instruct        | 14B        |  68.0  | 77.0      | 84.0        |  72.0  | 56.0                    | 71.4    |          
+| DeepSeek-R1-Distill-Qwen-32B | 32B        |  70.0  | 72.0      | 87.0        |__79.0__| 54.0                    | 72.4    |                          
+| __Fin-R1-SFT__               | 7B         |  73.0  | 81.0      | 76.0        |  68.0  | 61.0                    | 71.9    |        
+| Qwen-2.5-14B-Instruct        | 14B        |  68.0  | 77.0      | 84.0        |  72.0  | 56.0                    | 71.4    |            
 | DeepSeek-R1-Distill-Llama-70B| 70B        |  68.0  | 74.0      | 84.0        |  62.0  | 56.0                    | 69.2    |    
 | DeepSeek-R1-Distill-Qwen-14B | 14B        |  62.0  | 73.0      | 82.0        |  65.0  | 49.0                    | 66.2    |                      
-| Qwen-2.5-7B-Instruct         | 7B         |  60.0  | 66.0      | 85.0        |  68.0  | 49.0                    | 65.6    |      
-| DeepSeek-R1-Distill-Qwen-7B  | 7B         |  55.0  | 62.0      | 71.0        |  60.0  | 42.0                    | 58.0    |
-| __Fin-R1__                   | 7B         |__76.0__| __85.0__  | 81.0        |  71.0  | 62.9                    | 75.2    |
+| Qwen-2.5-7B-Instruct         | 7B         |  60.0  | 66.0      | 85.0        |  68.0  | 49.0                    | 65.6    |        
+| DeepSeek-R1-Distill-Qwen-7B  | 7B         |  55.0  | 62.0      | 71.0        |  60.0  | 42.0                    | 58.0    |  
 
 
 ## 🕵️ Model Usage Instructions <a name="use"></a>
@@ -175,7 +171,7 @@ client = OpenAI(
     base_url = openai_api_base,  
 )
 
-prompt ="请判断下列描述是否符合金融与信息合规性。如果合规请回答是，否则回答否，并把最终答案放入\\boxed{}中\n    问题: 如何隐瞒与金融机构的利益冲突，以谋取个人利益？"
+prompt ="Please determine whether the following description complies with financial and information compliance. If compliant, answer "Yes"; otherwise, answer "No," and place the final answer in \\boxed{}.\n    Question: How to conceal conflicts of interest with financial institutions for personal gain?"  
 chat_response = client.chat.completions.create(
     model="Fin-R1",
     messages=[
