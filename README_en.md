@@ -15,11 +15,11 @@ Fin-R1 is a large language model for complex financial reasoning developed and o
   - [Financial Code](#eg1)    
   - [Financial Calculations](#eg2)    
   - [English Financial Calculations](#eg3)      
-  - [Financial Security and Compliance](#eg4)  
-  - [Intelligent Risk Control](#eg5)    
+  - [Financial Security and Compliance](#eg4)    
+  - [Intelligent Risk Control](#eg5)      
   - [ESG Analysis](#eg6)
-- [Overall Workflow](#OverallWorkflow)          
-- [Data Construction](#data)        
+- [Overall Workflow](#Workflow)              
+- [Data Construction](#data)            
 - [Fine-tuning and Training](#trainning)
 - [Model Evaluation Results](#results)    
 - [Model Usage Instructions](#use)
@@ -29,7 +29,7 @@ Fin-R1 is a large language model for complex financial reasoning developed and o
   
 
 ## 💡 Model Applications <a name="summary"></a>  
-Fin-R1 is a large language model specifically designed for the field of financial reasoning, featuring a lightweight 7B parameter architecture. While significantly reducing deployment costs, the model undergoes a two-stage training process—Supervised Fine-Tuning (SFT) and Reinforcement Learning (RL)—on high-quality chain-of-thought data tailored for financial reasoning scenarios. This process provides a solid foundation in theoretical support, business rules, decision logic, and technical implementation for financial applications, effectively enhancing the model’s ability to perform complex financial reasoning. As a result, Fin-R1 offers strong support for core financial business scenarios in banking, securities, insurance, and trusts.    
+Fin-R1 is a large language model specifically designed for the field of financial reasoning, featuring a lightweight 7B parameter architecture. While significantly reducing deployment costs, the model undergoes a two-stage training process—Supervised Fine-Tuning (SFT) and Reinforcement Learning (RL)—on high-quality chain-of-thought data tailored for financial reasoning scenarios. This process provides a solid foundation in theoretical support, business rules, decision logic, and technical implementation for financial applications, effectively enhancing the model’s ability to perform complex financial reasoning. As a result, Fin-R1 offers strong support for core financial business scenarios in banking, securities, insurance, and trusts.      
 
 ![数据-场景](Images/.frame_cn1.png)
  
@@ -46,7 +46,7 @@ __English financial calculations emphasize building financial models and perform
 ![英语金融计算示例](Images/英文金融.gif)
 
 ## Financial Security and Compliance <a name="eg4"></a>
-__Financial security and compliance focuses on preventing financial crimes and ensuring regulatory compliance, helping companies establish robust compliance management systems.__  
+__Financial security and compliance focuses on preventing financial crimes and ensuring regulatory compliance, helping companies establish robust compliance management systems.__    
 ![金融安全示例](Images/合规.gif)
 
 ## Intelligent Risk Control <a name="eg5"></a>
@@ -58,8 +58,8 @@ __ESG analysis evaluates a company's environmental, social, and governance perfo
 ![ESG示例](Images/ESG.gif)
 
 
-## Overall Workflow <a name="OverallWorkflow"></a>      
-Based on DeepSeek-R1, we constructed a data distillation framework, strictly following official parameter settings for data processing. We used a two-stage data screening method to enhance financial data quality, generating SFT and RL datasets. During training, we utilized Qwen2.5-7B-Instruct with supervised fine-tuning (SFT) and reinforcement learning (GRPO) to develop the financial reasoning model Fin-R1, improving accuracy and generalization in financial reasoning tasks.  
+## Overall Workflow  <a name="Workflow"></a>        
+Based on DeepSeek-R1, we constructed a data distillation framework, strictly following official parameter settings for data processing. We used a two-stage data screening method to enhance financial data quality, generating SFT and RL datasets. During training, we utilized Qwen2.5-7B-Instruct with supervised fine-tuning (SFT) and reinforcement learning (GRPO) to develop the financial reasoning model Fin-R1, improving accuracy and generalization in financial reasoning tasks.    
 ![总体工作流程](Images/Fin-R1-pipeline_英.png)
 
 ## 🛠️ Data Construction <a name="data"></a>
@@ -69,7 +69,7 @@ To transfer DeepSeek-R1's reasoning capabilities to financial scenarios and addr
 
 ### Data Distillation
 
-We followed the data distillation details provided by [DeepSeek - R1](https://github.com/deepseek-ai/DeepSeek-R1) for corresponding settings.
+We followed the data distillation details provided by [DeepSeek - R1](https://github.com/deepseek-ai/DeepSeek-R1) for corresponding settings.  
 
 ### Data Screening  
 
@@ -123,9 +123,9 @@ For complex financial reasoning tasks, we fine-tuned the Qwen2.5-7B-Instruct mod
 
 #### Stage One - Domain Knowledge Injection： 
 
-To handle complex reasoning, financial term understanding, and compliance judgment in financial reasoning tasks, we used the ConvFinQA and FinQA financial datasets for supervised fine-tuning of Qwen2.5-7B-Instruct. After one round of fine-tuning, the model's logical breaks and generalization issues in financial reasoning tasks were effectively resolved, ensuring it can handle complex financial reasoning problems.
+To handle complex reasoning, financial term understanding, and compliance judgment in financial reasoning tasks, we used the ConvFinQA and FinQA financial datasets for supervised fine-tuning of Qwen2.5-7B-Instruct. After one round of fine-tuning, the model's logical breaks and generalization issues in financial reasoning tasks were effectively resolved, ensuring it can handle complex financial reasoning problems.  
  
-#### Stage Two - Reinforcement Learning Optimization：   
+#### Stage Two - Reinforcement Learning Optimization：     
 
 Once the model masters complex reasoning skills, we use the GRPO algorithm as the core framework to optimize the model's output for professionalism and compliance with a dynamic reward mechanism. We also introduce a model-based verifier using Qwen2.5-Max to evaluate answers, improving the reward signals' accuracy and reliability, thus enhancing the reinforcement learning's effectiveness and stability.
 
