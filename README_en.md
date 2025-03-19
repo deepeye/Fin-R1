@@ -3,7 +3,7 @@
 <div align="center">
   <h1>Fin-R1: A Large Language Model for Financial Reasoning through Reinforcement Learning</h1>
  
- [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Model Download](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1) [![Dataset Download](https://img.shields.io/badge/📁-Get_Dataset-green)](https://huggingface.co/datasets/SUFE-AIFLM-Lab/Fin-R1-Data) [![Technical Documentation](https://img.shields.io/badge/📚-Technical_Docs-orange)](#) 📄 [中文](./README.md) | [EN](./README_en.md)      
+ [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Model Download](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1)  [![Technical Documentation](https://img.shields.io/badge/📚-Technical_Docs-orange)](#) 📄 [中文](./README.md) | [EN](./README_en.md)                      
 </div>
 
 Fin-R1 is a large language model for complex financial reasoning developed and open-sourced by the SUFE-AIFLM-Lab at the School of Statistics and Data Science, Shanghai University of Finance and Economics. Built on Qwen2.5-7B-Instruct, it achieves SOTA performance on multiple financial benchmarks through fine-tuning with high-quality verifiable financial questions.  
@@ -29,7 +29,7 @@ Fin-R1 is a large language model for complex financial reasoning developed and o
   
 
 ## 💡 Model Applications <a name="summary"></a>  
-Fin-R1 is a large language model specifically designed for the field of financial reasoning, featuring a lightweight 7B parameter architecture. While significantly reducing deployment costs, the model undergoes a two-stage training process—Supervised Fine-Tuning (SFT) and Reinforcement Learning (RL)—on high-quality chain-of-thought data tailored for financial reasoning scenarios. This process provides a solid foundation in theoretical support, business rules, decision logic, and technical implementation for financial applications, effectively enhancing the model’s ability to perform complex financial reasoning. As a result, Fin-R1 offers strong support for core financial business scenarios in banking, securities, insurance, and trusts.      
+Fin-R1 is a large language model specifically designed for the field of financial reasoning, featuring a lightweight 7B parameter architecture. While significantly reducing deployment costs, the model undergoes a two-stage training process—Supervised Fine-Tuning (SFT) and Reinforcement Learning (RL)—on high-quality chain-of-thought data tailored for financial reasoning scenarios. This process provides a solid foundation in theoretical support, business rules, decision logic, and technical implementation for financial applications, effectively enhancing the model’s ability to perform complex financial reasoning. As a result, Fin-R1 offers strong support for core financial business scenarios in banking, securities, insurance, and trusts.        
 
 ![数据-场景](Images/.frame_cn1.png)
  
@@ -96,7 +96,7 @@ To address the complexity of financial data, we've adopted an innovative dual - 
 We use data marked as good after two rounds of filtering as high-quality COT data for SFT, while data marked as bad is used as reasoning QA data for reinforcement learning (RL).
 
 ### Fin-R1-Data Data Distribution:
-Fin-R1-Data covers multi-dimensional financial expertise in Chinese and English, divided into four modules: financial code, knowledge, non-reasoning and reasoning business knowledge, supporting core banking, securities and trust scenarios.  
+Fin-R1-Data covers multi-dimensional financial expertise in Chinese and English, divided into four modules: financial code, knowledge, non-reasoning and reasoning business knowledge, supporting core banking, securities and trust scenarios.    
 ![grpo](Images/Data_distribution_en.png)         
 |Dataset|Data Volume|
 |-------------|--------|
@@ -113,7 +113,7 @@ Fin-R1-Data covers multi-dimensional financial expertise in Chinese and English,
 |Total| 60091 |
 
 
-You can check specific tasks and examples in [Fin-R1-Data](https://huggingface.co/datasets/SUFE-AIFLM-Lab/Fin-R1-Data).  
+  
 
 
 ## 🚀 Fine-tuning and Training<a name="trainning"></a>
@@ -123,7 +123,7 @@ For complex financial reasoning tasks, we fine-tuned the Qwen2.5-7B-Instruct mod
 
 #### Stage One - Domain Knowledge Injection： 
 
-To handle complex reasoning, financial term understanding, and compliance judgment in financial reasoning tasks, we used the ConvFinQA and FinQA financial datasets for supervised fine-tuning of Qwen2.5-7B-Instruct. After one round of fine-tuning, the model's logical breaks and generalization issues in financial reasoning tasks were effectively resolved, ensuring it can handle complex financial reasoning problems.  
+To handle complex reasoning, financial term understanding, and compliance judgment in financial reasoning tasks, we used the ConvFinQA and FinQA financial datasets for supervised fine-tuning of Qwen2.5-7B-Instruct. After one round of fine-tuning, the model's logical breaks and generalization issues in financial reasoning tasks were effectively resolved, ensuring it can handle complex financial reasoning problems.        
  
 #### Stage Two - Reinforcement Learning Optimization：     
 
