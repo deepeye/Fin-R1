@@ -42,19 +42,19 @@ __金融代码是指在金融领域中用于实现各种金融模型、算法和
 ![Financial Code](Images/Financial_Code.gif) 
 ## 金融计算
 __金融计算是对金融领域的各种问题进行定量分析和计算的过程，其核心在于通过建立数学模型和运用数值方法来解决实际金融问题，可为金融决策提供科学依据，帮助金融机构和投资者更好地管理风险、优化资源配置和提高投资回报率。__
-![Financial Calculations](Images/Financial_Calculations.gif)   
+![Financial Calculations](Images/Financial_Calculations.gif)     
 ## 英语金融计算
 __英语金融计算强调在跨语言环境下使用英语进行金融模型的构建和计算，并能够以英语撰写金融分析报告和与国际同行进行沟通交流。__
-![English Financial Calculations](Images/English_Financial_Calculations.gif)
+![English Financial Calculations](Images/English_Financial_Calculations.gif)  
 ## 金融安全合规
 __金融安全合规聚焦于防范金融犯罪与遵守监管要求，帮助企业建立健全的合规管理体系，定期进行合规检查和审计，确保业务操作符合相关法规要求。__
-![Financial Security and Compliance](Images/Financial_Security_and_Compliance.gif)  
+![Financial Security and Compliance](Images/Financial_Security_and_Compliance.gif)        
 ## 智能风控
 __智能风控利用AI与大数据技术识别和管理金融风险，与传统风控手段相比，智能风控具有更高的效率、准确性和实时性，它通过对海量金融数据的深度挖掘和分析，能够发现潜在的风险模式和异常交易行为，从而及时预警和采取相应的风险控制措施。__
-![Intelligent Risk Control](Images/Intelligent_Risk_Control.gif)
+![Intelligent Risk Control](Images/Intelligent_Risk_Control.gif)    
 ## ESG分析
 __ESG分析通过评估企业在环境（Environmental）、社会（Social）、治理（Governance）的表现，衡量其可持续发展能力，确保投资活动不仅能够获得财务回报，还能促进可持续发展和社会责任的履行。金融机构和企业也通过提升自身的 ESG 绩效，来满足投资者和社会对企业更高的期望和要求。__
-![ESG](Images/ESG.gif)    
+![ESG](Images/ESG.gif)      
 
   
 
