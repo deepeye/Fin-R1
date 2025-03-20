@@ -4,7 +4,7 @@
   <h1>Fin-R1: A Large Language Model for Financial Reasoning through Reinforcement Learning</h1>
 
   <!-- 徽章部分 -->
-  [![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![Model Download](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1) [![Technical Report](https://img.shields.io/badge/📚-Technical_Report-orange)](./Technical_report.pdf)                
+  [![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![Model Download](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1) [![Technical Report](https://img.shields.io/badge/📚-Technical_Report-orange)](./Technical_report.pdf)                  
 
   <!-- 语言切换链接 -->
   📄 [中文](./README.md) | [EN](./README_en.md)
@@ -33,33 +33,33 @@ Fin-R1 is a large language model for complex financial reasoning developed and o
   
 
 ## 💡 Model Applications <a name="summary"></a>  
-Fin-R1 is a large language model specifically designed for the field of financial reasoning, featuring a lightweight 7B parameter architecture. While significantly reducing deployment costs, the model undergoes a two-stage training process—Supervised Fine-Tuning (SFT) and Reinforcement Learning (RL)—on high-quality chain-of-thought data tailored for financial reasoning scenarios. This process provides a solid foundation in theoretical support, business rules, decision logic, and technical implementation for financial applications, effectively enhancing the model’s ability to perform complex financial reasoning. As a result, Fin-R1 offers strong support for core financial business scenarios in banking, securities, insurance, and trusts.            
+Fin-R1 is a large language model specifically designed for the field of financial reasoning, featuring a lightweight 7B parameter architecture. While significantly reducing deployment costs, the model undergoes a two-stage training process—Supervised Fine-Tuning (SFT) and Reinforcement Learning (RL)—on high-quality chain-of-thought data tailored for financial reasoning scenarios. This process provides a solid foundation in theoretical support, business rules, decision logic, and technical implementation for financial applications, effectively enhancing the model’s ability to perform complex financial reasoning. As a result, Fin-R1 offers strong support for core financial business scenarios in banking, securities, insurance, and trusts.              
 
 ![数据-场景](Images/.frame_cn1.png)
  
-## Financial Code <a name="eg1"></a>
-__Financial code refers to computer programming code used in the financial field for various financial models, algorithms, and analytical tasks, covering everything from simple financial calculations to complex derivatives pricing, risk assessment, and portfolio optimization.__
-![金融计算示例](Images/金融代码.gif)
+## Financial Code <a name="eg1"></a>          
+__Financial code refers to computer programming code used in the financial field for various financial models, algorithms, and analytical tasks, covering everything from simple financial calculations to complex derivatives pricing, risk assessment, and portfolio optimization.__  
+![Financial Code](Images/Financial_Code.gif)      
 
 ## Financial Calculations <a name="eg2"></a>
-__Financial calculations involve quantitative analysis and computation of various financial problems, using mathematical models and numerical methods to solve practical financial issues, providing scientific basis for financial decisions.__      
-![金融计算示例](Images/金融计算.gif)
+__Financial calculations involve quantitative analysis and computation of various financial problems, using mathematical models and numerical methods to solve practical financial issues, providing scientific basis for financial decisions.__          
+![Financial Calculations](Images/Financial_Calculations.gif)  
 
-## English Financial Calculations <a name="eg3"></a>  
+## English Financial Calculations <a name="eg3"></a>          
 __English financial calculations emphasize building financial models and performing calculations in cross-language environments, and communicating with international peers in English.__  
-![英语金融计算示例](Images/英文金融.gif)
+![English Financial Calculations](Images/English_Financial_Calculations.gif)            
 
-## Financial Security and Compliance <a name="eg4"></a>
+## Financial Security and Compliance <a name="eg4"></a>          
 __Financial security and compliance focuses on preventing financial crimes and ensuring regulatory compliance, helping companies establish robust compliance management systems.__    
-![金融安全示例](Images/合规.gif)
+![Financial Security and Compliance](Images/Financial_Security_and_Compliance.gif)      
 
-## Intelligent Risk Control <a name="eg5"></a>
-__Intelligent risk control uses AI and big data to identify and manage financial risks, offering higher efficiency, accuracy, and real-time capabilities compared to traditional methods.__
-![金融风控示例](Images/风控.gif)
+## Intelligent Risk Control <a name="eg5"></a>    
+__Intelligent risk control uses AI and big data to identify and manage financial risks, offering higher efficiency, accuracy, and real-time capabilities compared to traditional methods.__    
+![Intelligent Risk Control](Images/Intelligent_Risk_Control.gif)            
 
 ## ESG Analysis <a name="eg6"></a>
-__ESG analysis evaluates a company's environmental, social, and governance performance to measure its sustainability, ensuring investments generate financial returns while promoting sustainable development.__  
-![ESG示例](Images/ESG.gif)
+__ESG analysis evaluates a company's environmental, social, and governance performance to measure its sustainability, ensuring investments generate financial returns while promoting sustainable development.__    
+![ESG](Images/ESG.gif)    
 
 
 ## Overall Workflow  <a name="Workflow"></a>          
