@@ -65,7 +65,7 @@ __ESG analysis evaluates a company's environmental, social, and governance perfo
 
 ## Overall Workflow  <a name="Workflow"></a>          
 Based on DeepSeek-R1, we constructed a data distillation framework, strictly following official parameter settings for data processing. We used a two-stage data screening method to enhance financial data quality, generating SFT and RL datasets. During training, we utilized Qwen2.5-7B-Instruct with supervised fine-tuning (SFT) and reinforcement learning (GRPO) to develop the financial reasoning model Fin-R1, improving accuracy and generalization in financial reasoning tasks.          
-![总体工作流程](Images/Fin-R1-pipeline_en.png)              
+![总体工作流程](Images/.frame2_cn.png)              
 
 ## 🛠️ Data Construction <a name="data"></a>
 To transfer DeepSeek-R1's reasoning capabilities to financial scenarios and address high-quality financial reasoning data needs, we used Deepseek-R1 (full version) to distill and screen multiple datasets (FinCorpus, Ant_Finance, FinPEE, FinCUGE, FinanceIQ, Finance-Instruct-500K, FinQA, TFNS, ConvFinQA, FinanceQT). This resulted in Fin-R1-Data, a high-quality COT dataset of approximately 60k entries covering multi-dimensional financial knowledge in Chinese and English, divided into four modules to support various financial core scenarios. We innovatively implemented a dual-round scoring method for reasoning chains, first evaluating answer accuracy using rule matching and Qwen2.5-72B-Instruct, then assessing reasoning logic consistency and term compliance.    
