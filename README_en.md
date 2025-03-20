@@ -1,5 +1,4 @@
-![Fin-R1标题](Images/title.png)
-               
+![Fin-R1标题](Images/title.png)         
 <div align="center">
   <h1>Fin-R1: A Large Language Model for Financial Reasoning through Reinforcement Learning</h1>
 
