@@ -10,7 +10,7 @@
   📄 [中文](./README.md) | [EN](./README_en.md)
 </div>
 
-Fin-R1 is a large language model for complex financial reasoning developed and open-sourced by the SUFE-AIFLM-Lab at the School of Statistics and Data Science, Shanghai University of Finance and Economics. Built on Qwen2.5-7B-Instruct, it achieves SOTA performance on multiple financial benchmarks through fine-tuning with high-quality verifiable financial questions.                
+Fin-R1 is a large language model for complex financial reasoning developed and open-sourced by the SUFE-AIFLM-Lab at the School of Statistics and Data Science, Shanghai University of Finance and Economics. Built on Qwen2.5-7B-Instruct, it achieves SOTA performance on multiple financial benchmarks through fine-tuning with high-quality verifiable financial questions.                  
 
 
 
@@ -18,7 +18,7 @@ Fin-R1 is a large language model for complex financial reasoning developed and o
 - [Scenario application](#summary)      
   - [Financial Code](#eg1)    
   - [Financial Calculations](#eg2)    
-  - [English Financial Calculations](#eg3)      
+  - [English Financial Calculations](#eg3)        
   - [Financial Security and Compliance](#eg4)    
   - [Intelligent Risk Control](#eg5)      
   - [ESG Analysis](#eg6)
@@ -33,7 +33,7 @@ Fin-R1 is a large language model for complex financial reasoning developed and o
   
 
 ## 💡 Model Applications <a name="summary"></a>  
-Fin-R1 is a large language model specifically designed for the field of financial reasoning, featuring a lightweight 7B parameter architecture. While significantly reducing deployment costs, the model undergoes a two-stage training process—Supervised Fine-Tuning (SFT) and Reinforcement Learning (RL)—on high-quality chain-of-thought data tailored for financial reasoning scenarios. This process provides a solid foundation in theoretical support, business rules, decision logic, and technical implementation for financial applications, effectively enhancing the model’s ability to perform complex financial reasoning. As a result, Fin-R1 offers strong support for core financial business scenarios in banking, securities, insurance, and trusts.          
+Fin-R1 is a large language model specifically designed for the field of financial reasoning, featuring a lightweight 7B parameter architecture. While significantly reducing deployment costs, the model undergoes a two-stage training process—Supervised Fine-Tuning (SFT) and Reinforcement Learning (RL)—on high-quality chain-of-thought data tailored for financial reasoning scenarios. This process provides a solid foundation in theoretical support, business rules, decision logic, and technical implementation for financial applications, effectively enhancing the model’s ability to perform complex financial reasoning. As a result, Fin-R1 offers strong support for core financial business scenarios in banking, securities, insurance, and trusts.            
 
 ![数据-场景](Images/.frame_cn1.png)
  
@@ -46,7 +46,7 @@ __Financial calculations involve quantitative analysis and computation of variou
 ![金融计算示例](Images/金融计算.gif)
 
 ## English Financial Calculations <a name="eg3"></a>  
-__English financial calculations emphasize building financial models and performing calculations in cross-language environments, and communicating with international peers in English.__
+__English financial calculations emphasize building financial models and performing calculations in cross-language environments, and communicating with international peers in English.__  
 ![英语金融计算示例](Images/英文金融.gif)
 
 ## Financial Security and Compliance <a name="eg4"></a>
@@ -63,8 +63,8 @@ __ESG analysis evaluates a company's environmental, social, and governance perfo
 
 
 ## Overall Workflow  <a name="Workflow"></a>          
-Based on DeepSeek-R1, we constructed a data distillation framework, strictly following official parameter settings for data processing. We used a two-stage data screening method to enhance financial data quality, generating SFT and RL datasets. During training, we utilized Qwen2.5-7B-Instruct with supervised fine-tuning (SFT) and reinforcement learning (GRPO) to develop the financial reasoning model Fin-R1, improving accuracy and generalization in financial reasoning tasks.        
-![总体工作流程](Images/Fin-R1-pipeline_英_.png)  
+Based on DeepSeek-R1, we constructed a data distillation framework, strictly following official parameter settings for data processing. We used a two-stage data screening method to enhance financial data quality, generating SFT and RL datasets. During training, we utilized Qwen2.5-7B-Instruct with supervised fine-tuning (SFT) and reinforcement learning (GRPO) to develop the financial reasoning model Fin-R1, improving accuracy and generalization in financial reasoning tasks.          
+![总体工作流程](Images/Fin-R1-pipeline_en.png)              
 
 ## 🛠️ Data Construction <a name="data"></a>
 To transfer DeepSeek-R1's reasoning capabilities to financial scenarios and address high-quality financial reasoning data needs, we used Deepseek-R1 (full version) to distill and screen multiple datasets (FinCorpus, Ant_Finance, FinPEE, FinCUGE, FinanceIQ, Finance-Instruct-500K, FinQA, TFNS, ConvFinQA, FinanceQT). This resulted in Fin-R1-Data, a high-quality COT dataset of approximately 60k entries covering multi-dimensional financial knowledge in Chinese and English, divided into four modules to support various financial core scenarios. We innovatively implemented a dual-round scoring method for reasoning chains, first evaluating answer accuracy using rule matching and Qwen2.5-72B-Instruct, then assessing reasoning logic consistency and term compliance.    
