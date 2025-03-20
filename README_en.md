@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="Images/title.png" width="700" height="300">
+  <img src="Images/title.png" width="700" height="200">
 </div>
 <div align="center">
   <h1>Fin-R1: A Large Language Model for Financial Reasoning through Reinforcement Learning</h1>               
