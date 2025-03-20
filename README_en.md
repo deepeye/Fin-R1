@@ -1,8 +1,9 @@
-![Fin-R1标题](Images/title.png)         
 <div align="center">
-  <h1>Fin-R1: A Large Language Model for Financial Reasoning through Reinforcement Learning</h1>
-
-  <!-- 徽章部分 -->
+  <img src="Images/title.png" width="700" height="300">
+</div>
+<div align="center">
+  <h1>Fin-R1: A Large Language Model for Financial Reasoning through Reinforcement Learning</h1>               
+<!-- 徽章部分 -->
   [![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![Model Download](https://img.shields.io/badge/🤗-Download_Model-blue)](https://huggingface.co/SUFE-AIFLM-Lab/Fin-R1) [![Technical Report](https://img.shields.io/badge/📚-Technical_Report-orange)](./Technical_report.pdf)                  
 
   <!-- 语言切换链接 -->
