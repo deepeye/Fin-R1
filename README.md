@@ -1,5 +1,5 @@
 ![Fin-R1标题](Images/title.png) 
-<img src="Images/title.png" width="30%">
+<img src="Images/title.png" width="800" height="500">
 ---
 <div align="center">
   <h1>Fin-R1：通过强化学习驱动的金融推理大模型</h1>
