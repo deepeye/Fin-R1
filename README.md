@@ -1,8 +1,6 @@
+![Fin-R1标题](Images/title.png)         
 <div align="center">
-  <img src="Images/title.png" width="700" height="300">
-</div>
-<div align="center">
-  <h1>Fin-R1：通过强化学习驱动的金融推理大模型</h1>
+  <h1>Fin-R1: A Large Language Model for Financial Reasoning through Reinforcement Learning</h1>
 
   <!-- 徽章部分 -->
   [![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)  
